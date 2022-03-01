@@ -8,13 +8,7 @@
     </div>
 
     <div class="nav-group">
-      <nuxt-link class="nav-link" :to="{ name: 'sign-in' }">Sign In</nuxt-link>
-      <nuxt-link
-        class="mb-0 btn btn-sm btn-primary"
-        :to="{ name: 'register' }"
-        exact
-        >Create Account</nuxt-link
-      >
+      <nuxt-link class="nav-link" :to="{ name: 'history' }">History</nuxt-link>
     </div>
   </div>
 </template>

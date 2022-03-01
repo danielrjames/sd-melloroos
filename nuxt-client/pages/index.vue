@@ -1,45 +1,29 @@
 <template>
-  <app-home-auth v-if="isAuth"></app-home-auth>
-  <app-home-public v-else></app-home-public>
+  <div>Hello</div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import HomeAuth from '../components/home/HomeAuth.vue';
-import HomePublic from '../components/home/HomePublic.vue';
+// import { mapGetters } from 'vuex';
 
 export default {
   head() {
     return {
-      title: this.isAuth ? 'Dashboard' : 'nuxt-client',
-      titleTemplate: this.isAuth
-        ? '%s | nuxt-client'
-        : '%s | An Amazing Framework',
+      title: 'San Diego Mello Roos Lookup',
+      titleTemplate: '%s | Find Mello Roos Taxes by Address',
     };
   },
 
-  components: {
-    appHomeAuth: HomeAuth,
-    appHomePublic: HomePublic,
-  },
-
-  mounted() {
-    this.key = false;
-  },
+  components: {},
 
   computed: {
-    ...mapGetters('auth', {
-      isAuth: 'authSet',
-    }),
+    // ...mapGetters('auth', {
+    //   isAuth: 'authSet',
+    // }),
   },
 
   methods: {
     ahoy() {
       return true;
-    },
-
-    hello() {
-      this.key = true;
     },
   },
 };

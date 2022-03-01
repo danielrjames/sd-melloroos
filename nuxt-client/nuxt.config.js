@@ -1,12 +1,9 @@
 /* eslint-disable nuxt/no-cjs-in-config */
 /* eslint-disable vue/sort-keys */
 /* eslint-disable sort-keys-fix/sort-keys-fix */
-const bodyParser = require('body-parser');
 
 export default {
-  publicRuntimeConfig: {
-    clientId: process.env.CLIENT_ID,
-  },
+  publicRuntimeConfig: {},
 
   privateRuntimeConfig: {},
 
@@ -41,14 +38,10 @@ export default {
 
   modules: ['@nuxtjs/axios', 'cookie-universal-nuxt', 'nuxt-user-agent'],
 
-  serverMiddleware: [
-    bodyParser.json(),
-    { path: '/set-cookies', handler: '~/server/set-cookies' },
-    { path: '/clear-cookies', handler: '~/server/clear-cookies' },
-  ],
+  serverMiddleware: [{ path: '/api', handler: '~/api/index.js' }],
 
   axios: {
-    baseURL: process.env.API_URL,
+    baseURL: '/',
     retry: { retries: 3 },
     https: process.env.NODE_ENV === 'production',
     proxyHeaders: false, // needed for cloudflare
@@ -58,7 +51,7 @@ export default {
 
   router: {
     linkActiveClass: 'active',
-    middleware: ['auth', 'overlays'],
+    middleware: ['overlays'],
   },
 
   build: {

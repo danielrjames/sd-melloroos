@@ -19,8 +19,8 @@ import Footer from '../components/footer/Footer.vue';
 export default {
   head() {
     return {
-      title: 'nuxt-client',
-      titleTemplate: '%s | nuxt-client',
+      title: 'San Diego Mello Roos Lookup',
+      titleTemplate: '%s | San Diego Mello Roos Lookup',
     };
   },
 
@@ -42,37 +42,7 @@ export default {
     window.removeEventListener('resize', await this.handleResize);
   },
 
-  async mounted() {
-    if (this.auth && this.authTimer > 0) {
-      await this.$store.dispatch('auth/startTimer', this.authTimer);
-      this.addBodyClass(['auth']);
-    }
-  },
-
   watch: {
-    async auth(newValue, oldValue) {
-      if (oldValue === true && newValue === false) {
-        this.removeBodyClass(['auth']);
-
-        if (this.overlay) {
-          await this.$store.dispatch('app/closeMobileNav');
-          await this.$store.dispatch('app/closeModal');
-        }
-      }
-    },
-
-    async authLoaded(newValue, oldValue) {
-      if (newValue === true) {
-        this.addBodyClass(['auth']);
-
-        await this.$store.dispatch('auth/updateAuthLoading', false);
-
-        if (this.navDropdown) {
-          await this.$store.dispatch('app/closeNavDropdown');
-        }
-      }
-    },
-
     async isMobile(newValue, oldValue) {
       if (this.mobileNav) {
         await this.$store.dispatch('app/closeMobileNav');
@@ -100,19 +70,6 @@ export default {
       modal: 'modal',
       navDropdown: 'navDropdown',
     }),
-
-    ...mapState('auth', {
-      auth: 'authenticated',
-      authLoading: 'authLoading',
-      authSubmit: 'authSubmit',
-      authTimer: 'timer',
-    }),
-
-    authLoaded() {
-      return (
-        this.auth && this.authLoading && !this.authSubmit && !this.isLoading
-      );
-    },
 
     overlay() {
       return this.mobileNav || this.modal.open;
