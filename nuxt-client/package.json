@@ -21,6 +21,7 @@
     "nuxt": "^2.15.7",
     "nuxt-route-meta": "^2.3.4",
     "nuxt-user-agent": "^1.2.2",
+    "puppeteer": "^13.4.1",
     "v-click-outside": "^3.1.2",
     "vuex-multi-tab-state": "^1.0.17"
   },
