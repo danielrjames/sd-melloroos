@@ -1,9 +1,16 @@
 <template>
-  <div>Hello</div>
+  <div>
+    Hello
+
+    <div>
+      <app-lookup-form></app-lookup-form>
+    </div>
+  </div>
 </template>
 
 <script>
 // import { mapGetters } from 'vuex';
+import LookupForm from '../components/lookup/LookupForm.vue';
 
 export default {
   head() {
@@ -13,7 +20,9 @@ export default {
     };
   },
 
-  components: {},
+  components: {
+    appLookupForm: LookupForm,
+  },
 
   computed: {
     // ...mapGetters('auth', {

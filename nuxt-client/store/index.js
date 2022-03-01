@@ -6,7 +6,7 @@ const actions = {
   async nuxtServerInit({ dispatch }, { app }) {
     await dispatch('app/updateBrowser', app.$ua.browser());
 
-    // return await dispatch('auth/initCheckTokens', app.$cookies);
+    return await dispatch('property/getHistory');
   },
 };
 

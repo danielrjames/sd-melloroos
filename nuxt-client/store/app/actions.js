@@ -39,8 +39,8 @@ const actions = {
     return commit('SET_BROWSER', browser);
   },
 
-  async updateLoading({ commit, dispatch, rootState }, boolean) {
-    if (boolean === false && !rootState.auth.authSubmit) {
+  async updateLoading({ commit, dispatch }, boolean) {
+    if (boolean === false) {
       await dispatch('stopSpinner');
     }
 

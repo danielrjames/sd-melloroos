@@ -185,7 +185,7 @@
     @apply block mb-2 font-medium;
   }
   .input-control {
-    @apply block w-full max-w-full sm:text-sm placeholder-gray-400 bg-white rounded focus:border focus:ring-1 focus:outline-none focus:focus-gray-placeholder focus:border-primary focus:ring-primary text-gray-input border-gray-input;
+    @apply block w-full max-w-full placeholder-gray-400 bg-white rounded focus:border focus:ring-1 focus:outline-none focus:focus-gray-placeholder focus:border-primary focus:ring-primary text-gray-input border-gray-input;
   }
   .checkbox-label,
   .radio-label {
@@ -306,15 +306,6 @@
   }
 
   /* misc */
-  .auth-frame {
-    @apply px-4 pb-4 pt-1 sm:px-5 sm:pb-5 sm:pt-2 mx-auto w-80 max-w-xs bg-white rounded border border-gray-default;
-  }
-  .auth-frame-heading {
-    @apply my-3 sm:my-4 text-xl sm:text-2xl font-bold tracking-tight text-center text-gray-heading;
-  }
-  .auth-frame-message {
-    @apply -mt-2 mb-2 text-sm text-center;
-  }
 
   .modal-header {
     @apply flex justify-between items-center text-base;

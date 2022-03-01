@@ -3,7 +3,9 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 
 export default {
-  publicRuntimeConfig: {},
+  publicRuntimeConfig: {
+    clientId: process.env.CLIENT_ID,
+  },
 
   privateRuntimeConfig: {},
 
@@ -41,13 +43,13 @@ export default {
   serverMiddleware: [{ path: '/api', handler: '~/api/index.js' }],
 
   axios: {
-    baseURL: '/',
+    baseURL: process.env.API_URL,
     retry: { retries: 3 },
     https: process.env.NODE_ENV === 'production',
     proxyHeaders: false, // needed for cloudflare
   },
 
-  loading: '~/components/loading/Loading.vue',
+  loading: false,
 
   router: {
     linkActiveClass: 'active',
