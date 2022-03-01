@@ -1,0 +1,15 @@
+FROM node:lts-alpine
+
+ENV HOST 0.0.0.0
+
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+
+RUN yarn install
+
+RUN yarn cache clean
+
+COPY . .
+
+RUN yarn build

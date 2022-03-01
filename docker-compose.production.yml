@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  nuxt:
+    container_name: nuxt
+    build:
+      context: ./nuxt
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - 3000
+    command: 'yarn start'
+    depends_on:
+      - api
+    networks:
+      - web
+
+networks:
+  web:
+    external:
+      name: nginx_web
