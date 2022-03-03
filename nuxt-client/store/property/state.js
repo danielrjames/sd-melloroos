@@ -1,5 +1,6 @@
 const state = () => ({
-  history: [],
+  current: '',
+  list: [],
 });
 
 export default state;

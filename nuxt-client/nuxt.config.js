@@ -31,7 +31,9 @@ export default {
   plugins: [
     { src: '~/plugins/axios.js' },
     { src: '~/plugins/clickOutside.js', mode: 'client' },
+    { src: '~/plugins/currency.js', mode: 'client' },
     { src: '~/plugins/multiTabState.js', mode: 'client' },
+    { src: '~/plugins/persistedState.js', mode: 'client' },
   ],
 
   components: false,

@@ -6,7 +6,7 @@ const actions = {
     return true;
   },
 
-  async lookup({ commit, dispatch, rootState }, data) {
+  async lookup({ commit, dispatch, rootState, state }, data) {
     if (rootState.app.loading) {
       return;
     }
@@ -14,14 +14,41 @@ const actions = {
     try {
       await dispatch('app/updateSpinner', true, { root: true });
 
+      commit('SET_CURRENT', '');
+
       const addressModel = propertyService.getLookupModel(
         data,
         this.$config.clientId
       );
 
-      const response = await this.$axios.$post(endpoint.LOOK_UP, addressModel);
+      const found =
+        state.list.length > 0 &&
+        state.list.find(
+          (prop) => prop.address.toLowerCase() === addressModel.address
+        );
 
-      console.log(response);
+      if (found) {
+        setTimeout(() => {
+          dispatch('app/updateSpinner', false, { root: true });
+
+          return commit('SET_CURRENT', addressModel.address);
+        }, 700);
+      } else {
+        const response = await this.$axios.$post(
+          endpoint.GET_TAXES,
+          addressModel
+        );
+
+        if (response.error) {
+          throw new ErrorException(response.error);
+        }
+
+        const taxInfo = propertyService.transformTaxResponse(response);
+
+        commit('ADD_PROPERTY', taxInfo);
+
+        return commit('SET_CURRENT', addressModel.address);
+      }
     } catch (err) {
       throw new ErrorException(err.message);
     }

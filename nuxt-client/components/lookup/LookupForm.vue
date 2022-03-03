@@ -2,8 +2,8 @@
   <form @submit.prevent="handleSubmit">
     <div v-if="error" class="my-2 text-red-default">{{ errorText }}</div>
     <app-text-input
-      :show-label="false"
-      label="Address"
+      :show-label="true"
+      label="Street Address Only"
       auto-complete="off"
       :input-value="address"
       placeholder="Enter Street Address"

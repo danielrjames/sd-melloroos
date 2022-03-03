@@ -23,7 +23,8 @@
     "nuxt-user-agent": "^1.2.2",
     "puppeteer": "^13.4.1",
     "v-click-outside": "^3.1.2",
-    "vuex-multi-tab-state": "^1.0.17"
+    "vuex-multi-tab-state": "^1.0.17",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
