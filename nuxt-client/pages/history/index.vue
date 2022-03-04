@@ -73,6 +73,13 @@ export default {
       size: 8,
     };
   },
+
+  head() {
+    return {
+      title: 'History',
+    };
+  },
+
   components: {
     appPagination: Pagination,
     appPropertyDetail: PropertyDetail,
