@@ -1,6 +1,39 @@
 version: '3'
 
 services:
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: always
+    expose:
+      - 6379
+    volumes:
+      - redis_data:/data
+    networks:
+      - internal
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - 80
+    environment:
+      ASPNETCORE_ENVIRONMENT: 'Production'
+      DB_CONNECTION_STRING: ''
+      CACHE_CONNECTION_STRING: 'Server=redis;Port=6379;'
+      EMAIL_API_KEY: ''
+      STORAGE_KEY: ''
+      STORAGE_CONNECTION_STRING: ''
+      STRIPE_PUBLIC_KEY: ''
+      STRIPE_SECRET_KEY: ''
+      STRIPE_WEBHOOK_KEY: ''
+      TOKEN_HTTPS_META: 'true'
+      TOKEN_AUDIENCE: 'https://example.com'
+      TOKEN_ISSUER: 'https://api.example.com'
+    networks:
+      - web
   nuxt:
     container_name: nuxt
     build:
@@ -14,6 +47,9 @@ services:
       - api
     networks:
       - web
+
+volumes:
+  redis_data:
 
 networks:
   web:
