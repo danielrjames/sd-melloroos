@@ -7,19 +7,19 @@
     </div>
     <div class="prose prose-sm">
       <p>
-        While searching for a house in San Diego County, I instantly realized
-        there was no easy way to find exact Mello Roos tax amounts for
-        properties I was interested in.
+        While searching for a house in San Diego County, I realized there was no
+        easy way to see the exact Mello Roos tax amounts for properties I was
+        interested in.
       </p>
       <p>
-        The process to find these taxes is somewhat cumbersome and a little
-        agitating, to be honest. And because of that, I decided to build this
-        web app.
+        After a little digging, I found the process to get this tax info to be
+        somewhat cumbersome. And because of that, I decided to build this web
+        app.
       </p>
       <p>
-        I hope this can help you get the information you need. With buying a
-        house today, Mello Roos taxes do add up, so it's nice to know what they
-        are upfront.
+        With buying a house today, Mello Roos taxes do add up, so it's nice to
+        know what they are up front. I hope this can help you get the
+        information you need.
       </p>
       <p>
         If you like this app, I'm always available to hire for little projects
@@ -31,11 +31,11 @@
             href="https://www.linkedin.com/in/danjames86/"
             target="_blank"
             rel="noopener noreferrer"
-            >Linkedin</a
+            >LinkedIn</a
           >)</span
         >.
       </p>
-      <p>- Daniel James</p>
+      <p>Daniel James</p>
     </div>
   </div>
 </template>

@@ -4,9 +4,7 @@ const mutations = {}; // using modules for mutations
 
 const actions = {
   async nuxtServerInit({ dispatch }, { app }) {
-    await dispatch('app/updateBrowser', app.$ua.browser());
-
-    return await dispatch('property/getHistory');
+    return await dispatch('app/updateBrowser', app.$ua.browser());
   },
 };
 

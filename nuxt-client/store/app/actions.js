@@ -39,10 +39,10 @@ const actions = {
     return commit('SET_BROWSER', browser);
   },
 
-  async updateLoading({ commit, dispatch }, boolean) {
-    if (boolean === false) {
-      await dispatch('stopSpinner');
-    }
+  updateLoading({ commit, dispatch }, boolean) {
+    // if (boolean === false) {
+    //   await dispatch('stopSpinner');
+    // }
 
     return commit('SET_LOADING', boolean);
   },

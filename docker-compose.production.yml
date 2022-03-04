@@ -11,6 +11,21 @@ services:
       - redis_data:/data
     networks:
       - internal
+  postgres:
+    container_name: postgres
+    image: postgres:alpine
+    restart: always
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: 'pguser'
+      POSTGRES_PASSWORD: 'pguserpass'
+      POSTGRES_DB: 'pgDb'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - internal
   api:
     container_name: api
     build:
@@ -21,18 +36,13 @@ services:
       - 80
     environment:
       ASPNETCORE_ENVIRONMENT: 'Production'
-      DB_CONNECTION_STRING: ''
+      DB_CONNECTION_STRING: 'Server=postgres;Port=5432;Database=pgDb;User Id=pguser;Password=pguserpass'
       CACHE_CONNECTION_STRING: 'Server=redis;Port=6379;'
-      EMAIL_API_KEY: ''
-      STORAGE_KEY: ''
-      STORAGE_CONNECTION_STRING: ''
-      STRIPE_PUBLIC_KEY: ''
-      STRIPE_SECRET_KEY: ''
-      STRIPE_WEBHOOK_KEY: ''
       TOKEN_HTTPS_META: 'true'
-      TOKEN_AUDIENCE: 'https://example.com'
-      TOKEN_ISSUER: 'https://api.example.com'
+      TOKEN_AUDIENCE: 'https://sandiegomelloroos.com'
+      TOKEN_ISSUER: 'https://api.sandiegomelloroos.com'
     networks:
+      - internal
       - web
   nuxt:
     container_name: nuxt
@@ -42,16 +52,18 @@ services:
     restart: always
     expose:
       - 3000
-    command: 'yarn start'
+    command: 'npm run start'
     depends_on:
       - api
     networks:
       - web
 
 volumes:
+  postgres_data:
   redis_data:
 
 networks:
+  internal:
   web:
     external:
       name: nginx_web

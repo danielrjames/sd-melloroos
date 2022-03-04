@@ -1,5 +1,6 @@
 using api.Data.Contexts;
 using api.Data.Repositories.Auth;
+using api.Data.Repositories.Property;
 using api.Domain.Entities.Auth;
 using api.Domain.Entities.User;
 using api.Services.Services.Auth;
@@ -111,6 +112,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 // app repositories
 
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
 
 // config
 

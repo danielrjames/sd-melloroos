@@ -33,9 +33,9 @@ app.post('/get-taxes', async (req, res) => {
 
     await page.select(ROLL.SELECT, '0');
 
-    await page.waitForSelector(ROLL.TIP);
+    await page.waitForSelector(ROLL.TIP, { visible: true });
 
-    await page.waitForTimeout(550);
+    await page.waitForTimeout(200);
 
     await page.focus(ROLL.ADDRESS_INPUT);
 
@@ -44,6 +44,8 @@ app.post('/get-taxes', async (req, res) => {
     await page.click(ROLL.BUTTON);
 
     await page.waitForSelector(ROLL.TABLE);
+
+    await page.waitForTimeout(5);
 
     const data = await page.$$eval(`${ROLL.TABLE} tr td`, (tds) =>
       tds.map((td) => {
@@ -71,9 +73,13 @@ app.post('/get-taxes', async (req, res) => {
 
     await page.keyboard.type(parcelNum);
 
+    await page.waitForTimeout(5);
+
     await page.click(TAXES.PARCEL_SUBMIT);
 
     await page.waitForNavigation();
+
+    await page.waitForTimeout(5);
 
     const ownerName = await page.$$eval(TAXES.RESULTS_OWNER, (tds) =>
       tds.map((td) => td.innerText)

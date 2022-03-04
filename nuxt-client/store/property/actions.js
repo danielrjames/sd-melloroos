@@ -1,13 +1,10 @@
+import axios from 'axios';
 import { ErrorException } from '../../utils/error';
 import { endpoint, propertyService } from '../../utils/property';
 
 const actions = {
   clearHistory({ commit }) {
     return commit('CLEAR_HISTORY');
-  },
-
-  getHistory({ commit }) {
-    return true;
   },
 
   async lookup({ commit, dispatch, rootState, state }, data) {
@@ -38,22 +35,41 @@ const actions = {
           dispatch('updateCurrent', addressModel.address);
         }, 500);
       } else {
-        const response = await this.$axios.$post(
-          endpoint.GET_TAXES,
+        let response;
+
+        const dbResponse = await this.$axios.$post(
+          endpoint.GET_TAXES_FROM_DB,
           addressModel
         );
 
-        if (response.error) {
-          throw new ErrorException(response.error);
+        if (dbResponse.valid) {
+          response = dbResponse;
+        } else {
+          const fetchResponse = await axios.post(
+            endpoint.FETCH_TAXES,
+            addressModel
+          );
+
+          if (fetchResponse.data.error) {
+            throw new ErrorException(fetchResponse.data.error);
+          }
+
+          response = fetchResponse.data;
+
+          this.$axios.$post(endpoint.ADD_TAXES_TO_DB, response); // do not await
         }
 
-        const taxInfo = propertyService.transformTaxResponse(response);
+        const propertyInfo = propertyService.transformTaxResponse(response);
 
-        commit('ADD_PROPERTY', taxInfo);
+        commit('ADD_PROPERTY', propertyInfo);
+
+        await dispatch('app/updateSpinner', false, { root: true });
 
         return await dispatch('updateCurrent', addressModel.address);
       }
     } catch (err) {
+      await dispatch('app/updateSpinner', false, { root: true });
+
       throw new ErrorException(err.message);
     }
   },

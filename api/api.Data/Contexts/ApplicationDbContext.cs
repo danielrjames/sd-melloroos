@@ -1,4 +1,5 @@
 ﻿using api.Domain.Entities.Auth;
+using api.Domain.Entities.MelloRoos;
 using api.Domain.Entities.User;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,11 @@ namespace api.Data.Contexts
         public DbSet<AuthClient> AuthClients { get; set; } = null!;
         public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
+        public DbSet<Assessment> Assessments { get; set; } = null!;
+        public DbSet<Fund> Funds { get; set; } = null!;
+        public DbSet<Property> Properties { get; set; } = null!;
+        public DbSet<Tax> Taxes { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -25,6 +31,11 @@ namespace api.Data.Contexts
 
             builder.Entity<AuthClient>().ToTable("AuthClient");
             builder.Entity<RefreshToken>().ToTable("RefreshToken");
+
+            builder.Entity<Assessment>().ToTable("Assessment");
+            builder.Entity<Fund>().ToTable("Fund");
+            builder.Entity<Property>().ToTable("Property");
+            builder.Entity<Tax>().ToTable("Tax");
 
             // User
             builder.Entity<ApplicationUser>()
@@ -39,6 +50,22 @@ namespace api.Data.Contexts
             builder.Entity<ApplicationUser>()
                 .HasMany(a => a.RefreshTokens)
                 .WithOne(b => b.User)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Mello Roos
+            builder.Entity<Property>()
+                .HasOne(a => a.Tax)
+                .WithOne(b => b.Property)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Property>()
+                .HasOne(a => a.Assessment)
+                .WithOne(b => b.Property)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Assessment>()
+                .HasMany(a => a.Funds)
+                .WithOne(b => b.Assessment)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Seed data
