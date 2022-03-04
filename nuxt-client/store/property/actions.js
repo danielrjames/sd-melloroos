@@ -2,6 +2,10 @@ import { ErrorException } from '../../utils/error';
 import { endpoint, propertyService } from '../../utils/property';
 
 const actions = {
+  clearHistory({ commit }) {
+    return commit('CLEAR_HISTORY');
+  },
+
   getHistory({ commit }) {
     return true;
   },
@@ -12,9 +16,9 @@ const actions = {
     }
 
     try {
-      await dispatch('app/updateSpinner', true, { root: true });
+      dispatch('updateCurrent', '');
 
-      commit('SET_CURRENT', '');
+      await dispatch('app/updateSpinner', true, { root: true });
 
       const addressModel = propertyService.getLookupModel(
         data,
@@ -31,8 +35,8 @@ const actions = {
         setTimeout(() => {
           dispatch('app/updateSpinner', false, { root: true });
 
-          return commit('SET_CURRENT', addressModel.address);
-        }, 700);
+          dispatch('updateCurrent', addressModel.address);
+        }, 500);
       } else {
         const response = await this.$axios.$post(
           endpoint.GET_TAXES,
@@ -47,11 +51,15 @@ const actions = {
 
         commit('ADD_PROPERTY', taxInfo);
 
-        return commit('SET_CURRENT', addressModel.address);
+        return await dispatch('updateCurrent', addressModel.address);
       }
     } catch (err) {
       throw new ErrorException(err.message);
     }
+  },
+
+  updateCurrent({ commit }, address) {
+    return commit('SET_CURRENT', address);
   },
 };
 

@@ -1,20 +1,17 @@
 <template>
-  <div class="bg-gray-50 border-t text-gray-input border-gray-default">
+  <div class="mt-10 sm:mt-14 bg-gray-50 text-gray-input">
     <div class="container">
-      <app-footer-nav></app-footer-nav>
       <app-footer-info> </app-footer-info>
     </div>
   </div>
 </template>
 
 <script>
-import FooterNav from './nav/FooterNav.vue';
 import FooterInfo from './info/FooterInfo.vue';
 
 export default {
   components: {
     appFooterInfo: FooterInfo,
-    appFooterNav: FooterNav,
   },
 };
 </script>

@@ -11,103 +11,106 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.post('/get-taxes', function (req, res) {
+app.post('/get-taxes', async (req, res) => {
   if (req.body.clientId !== 1) {
     throw new Error('Invalid Client');
   }
 
-  puppeteer
-    .launch({ headless: false })
-    .then(async function (browser) {
-      const page = await browser.newPage();
+  const browser = await puppeteer.launch({ headless: true });
 
-      await page.goto(ROLL.URL);
+  try {
+    const page = await browser.newPage();
 
-      await page.select(ROLL.SELECT, '0');
+    page.setUserAgent(
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36'
+    );
 
-      await page.waitForSelector(ROLL.TIP);
+    page.setDefaultNavigationTimeout(15000);
 
-      await page.waitForTimeout(300);
+    await page.goto(ROLL.URL, {
+      waitUntil: 'domcontentloaded',
+    });
 
-      await page.focus(ROLL.ADDRESS_INPUT);
+    await page.select(ROLL.SELECT, '0');
 
-      await page.keyboard.type(req.body.address);
+    await page.waitForSelector(ROLL.TIP);
 
-      await page.click(ROLL.BUTTON);
+    await page.waitForTimeout(550);
 
-      await page.waitForSelector(ROLL.TABLE);
+    await page.focus(ROLL.ADDRESS_INPUT);
 
-      const data = await page.$$eval(`${ROLL.TABLE} tr td`, (tds) =>
-        tds.map((td) => {
-          return td.innerText;
-        })
-      );
+    await page.keyboard.type(req.body.address);
 
-      const rawParcel = data[data.length - 1];
+    await page.click(ROLL.BUTTON);
 
-      if (rawParcel === 'No Property Found') {
-        await browser.close();
+    await page.waitForSelector(ROLL.TABLE);
 
-        throw new Error('Invalid Address');
-      }
+    const data = await page.$$eval(`${ROLL.TABLE} tr td`, (tds) =>
+      tds.map((td) => {
+        return td.innerText;
+      })
+    );
 
-      const parcelNum = rawParcel.replace(/-/g, '');
+    const rawParcel = data[data.length - 1];
 
-      if (parcelNum.length !== 10) {
-        await browser.close();
+    if (rawParcel === 'No Property Found') {
+      throw new Error('Invalid Address (no property found).');
+    }
 
-        throw new Error('Invalid Parcel (you did nothing wrong)');
-      }
+    const parcelNum = rawParcel.replace(/-/g, '');
 
-      await page.goto(TAXES.INPUT_URL);
+    if (parcelNum.length !== 10) {
+      throw new Error('Invalid Parcel (you did nothing wrong).');
+    }
 
-      await page.focus(TAXES.PARCEL_INPUT);
+    await page.goto(TAXES.INPUT_URL, {
+      waitUntil: 'domcontentloaded',
+    });
 
-      await page.keyboard.type(parcelNum);
+    await page.focus(TAXES.PARCEL_INPUT);
 
-      await page.click(TAXES.PARCEL_SUBMIT);
+    await page.keyboard.type(parcelNum);
 
-      await page.waitForNavigation();
+    await page.click(TAXES.PARCEL_SUBMIT);
 
-      const ownerName = await page.$$eval(TAXES.RESULTS_OWNER, (tds) =>
-        tds.map((td) => td.innerText)
-      );
+    await page.waitForNavigation();
 
-      const taxAssessment = await page.$$eval(
-        `${TAXES.RESULTS_TAXES} tr td`,
-        (tds) => tds.map((td) => td.innerText.trim())
-      );
+    const ownerName = await page.$$eval(TAXES.RESULTS_OWNER, (tds) =>
+      tds.map((td) => td.innerText)
+    );
 
-      if (taxAssessment.length === 0) {
-        await browser.close();
+    const taxAssessment = await page.$$eval(
+      `${TAXES.RESULTS_TAXES} tr td`,
+      (tds) => tds.map((td) => td.innerText.trim())
+    );
 
-        throw new Error('Could not get Tax results (you did nothing wrong)');
-      }
+    if (taxAssessment.length === 0) {
+      throw new Error('Could not get Tax data (you did nothing wrong).');
+    }
 
-      const breakdown = await page.$$eval(
-        `${TAXES.RESULTS_MELLO_ROOS} tr td`,
-        (tds) => tds.map((td) => td.innerText.trim())
-      );
+    const breakdown = await page.$$eval(
+      `${TAXES.RESULTS_MELLO_ROOS} tr td`,
+      (tds) => tds.map((td) => td.innerText.trim())
+    );
 
-      if (breakdown.length === 0) {
-        await browser.close();
+    // if (breakdown.length === 0) {
+    //   throw new Error(
+    //     'Could not get Mello Roos Breakdown (you did nothing wrong)'
+    //   );
+    // }
 
-        throw new Error(
-          'Could not get Mello Roos Breakdown (you did nothing wrong)'
-        );
-      }
-
-      await browser.close();
-
-      res.json({
-        address: req.body.address.toUpperCase(),
-        owner: ownerName[0].split('\t')[1],
-        parcel: rawParcel,
-        specialAssessment: breakdown,
-        taxes: taxAssessment,
-      });
-    })
-    .catch((err) => res.send({ error: err.message }));
+    res.json({
+      address: req.body.address.toUpperCase(),
+      owner: ownerName[0].split('\t')[1],
+      parcel: rawParcel,
+      specialAssessment: breakdown,
+      taxes: taxAssessment,
+    });
+  } catch (err) {
+    res.send({ error: err.message });
+  } finally {
+    await browser.close();
+  }
 });
 
 export default {

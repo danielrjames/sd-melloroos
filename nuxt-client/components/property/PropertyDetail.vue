@@ -1,7 +1,11 @@
 <template>
   <div class="text-sm">
     <div class="divide-y divide-gray-200">
-      <div class="py-2">
+      <div
+        class="py-2"
+        :class="{ 'cursor-pointer': toggleDetails }"
+        @click="showDetails"
+      >
         <div>
           <span class="font-medium text-gray-heading">Address:</span>
           <span>{{ result.address }}</span>
@@ -14,8 +18,17 @@
           <span class="font-medium text-gray-heading">Owner:</span>
           <span>{{ result.owner }}</span>
         </div>
+        <div v-if="showDate">
+          <span class="font-medium text-gray-heading">Searched On:</span>
+          <span>{{ result.lookupDate | localeTime }}</span>
+        </div>
       </div>
-      <div class="py-2">
+      <div
+        v-show="displayDetails"
+        :class="{ 'cursor-pointer': toggleDetails }"
+        class="py-2"
+        @click="showDetails"
+      >
         <div class="grid sm:grid-cols-2 sm:gap-x-10">
           <div>
             <div class="flex justify-between">
@@ -63,7 +76,13 @@
         </div>
       </div>
     </div>
-    <div class="mt-3">
+    <div
+      v-if="result.melloRoos !== null"
+      v-show="displayDetails"
+      :class="{ 'cursor-pointer': toggleDetails }"
+      class="mt-3"
+      @click="showDetails"
+    >
       <div
         class="pb-2 mb-2 font-medium text-center border-b border-gray-200 text-gray-heading"
       >
@@ -88,20 +107,52 @@
         </div>
       </div>
     </div>
-    <div class="mt-5 text-xs italic text-center sm:text-right">
+    <div
+      v-show="displayDetails"
+      class="py-2 mt-3 text-xs italic text-center sm:text-right"
+    >
       All information listed is public record.
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
-  computed: {
-    ...mapGetters('property', {
-      result: 'searchResult',
-    }),
+  props: {
+    result: {
+      type: Object,
+      default: () => null,
+    },
+
+    showDate: {
+      type: Boolean,
+      default: false,
+    },
+
+    toggleDetails: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  data() {
+    return {
+      displayDetails: false,
+    };
+  },
+
+  mounted() {
+    if (!this.toggleDetails) {
+      this.displayDetails = true;
+    }
+  },
+
+  methods: {
+    showDetails() {
+      if (this.toggleDetails) {
+        this.displayDetails = !this.displayDetails;
+      }
+    },
   },
 };
 </script>

@@ -9,7 +9,8 @@
   h2,
   h3,
   h4,
-  h5 {
+  h5,
+  h6 {
     @apply my-2.5 text-gray-heading font-extrabold tracking-tight;
   }
 
@@ -31,6 +32,10 @@
 
   h5 {
     @apply text-lg sm:text-xl lg:text-2xl;
+  }
+
+  h6 {
+    @apply text-base sm:text-lg lg:text-xl;
   }
 
   p {

@@ -34,6 +34,7 @@ export default {
     { src: '~/plugins/currency.js', mode: 'client' },
     { src: '~/plugins/multiTabState.js', mode: 'client' },
     { src: '~/plugins/persistedState.js', mode: 'client' },
+    { src: '~/plugins/time.js', mode: 'client' },
   ],
 
   components: false,

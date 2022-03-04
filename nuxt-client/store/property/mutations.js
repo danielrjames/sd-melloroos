@@ -3,6 +3,11 @@ const mutations = {
     state.list.push(payload);
   },
 
+  CLEAR_HISTORY(state) {
+    state.list = [];
+    state.current = '';
+  },
+
   SET_CURRENT(state, payload) {
     state.current = payload;
   },
