@@ -70,11 +70,19 @@ import { mapState } from 'vuex';
 import TextInput from '../../components/form/TextInput.vue';
 import Pagination from '../../components/pagination/Pagination.vue';
 import PropertyDetail from '../../components/property/PropertyDetail.vue';
+import { pageHeadConfig } from '../../utils/app';
 
 export default {
   data() {
     return {
       currentPage: 1,
+      headConfig: {
+        description: 'History page for San Diego Mello Roos Tax Lookup.',
+        imgPath: `${this.$config.baseDomain}/images/sdm_og.jpg`,
+        ogTitle: 'History | San Diego Mello Roos Tax Lookup',
+        title: 'History',
+        url: `${this.$config.baseDomain}${this.$route.fullPath}`,
+      },
       listLength: 0,
       pageCount: 1,
       searchTerm: '',
@@ -83,9 +91,7 @@ export default {
   },
 
   head() {
-    return {
-      title: 'History',
-    };
+    return pageHeadConfig(this.headConfig);
   },
 
   components: {

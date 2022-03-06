@@ -28,13 +28,9 @@ const actions = {
           (prop) => prop.address.toLowerCase() === addressModel.address
         );
 
-      if (found) {
-        setTimeout(() => {
-          dispatch('app/updateSpinner', false, { root: true });
+      let timer = 400;
 
-          dispatch('updateCurrent', addressModel.address);
-        }, 500);
-      } else {
+      if (!found) {
         let response;
 
         const dbResponse = await this.$axios.$get(
@@ -43,6 +39,8 @@ const actions = {
 
         if (dbResponse.valid === true) {
           response = dbResponse.model;
+
+          timer = 250;
         } else {
           const fetchResponse = await axios.post(
             endpoint.FETCH_FROM_COUNTY,
@@ -58,14 +56,20 @@ const actions = {
           );
 
           this.$axios.$post(endpoint.SAVE_TO_DB, response); // do not await
+
+          timer = 0;
         }
 
         commit('ADD_PROPERTY', response);
-
-        await dispatch('app/updateSpinner', false, { root: true });
-
-        return await dispatch('updateCurrent', addressModel.address);
       }
+
+      setTimeout(() => {
+        dispatch('app/updateSpinner', false, { root: true });
+
+        dispatch('updateCurrent', addressModel.address);
+      }, timer);
+
+      return true;
     } catch (err) {
       await dispatch('app/updateSpinner', false, { root: true });
 

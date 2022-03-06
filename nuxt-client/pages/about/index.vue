@@ -41,11 +41,23 @@
 </template>
 
 <script>
+import { pageHeadConfig } from '../../utils/app';
+
 export default {
-  head() {
+  data() {
     return {
-      title: 'About',
+      headConfig: {
+        description: 'About page for San Diego Mello Roos Tax Lookup.',
+        imgPath: `${this.$config.baseDomain}/images/sdm_og.jpg`,
+        ogTitle: 'About | San Diego Mello Roos Tax Lookup',
+        title: 'About',
+        url: `${this.$config.baseDomain}${this.$route.fullPath}`,
+      },
     };
+  },
+
+  head() {
+    return pageHeadConfig(this.headConfig);
   },
 };
 </script>

@@ -27,25 +27,37 @@ namespace api.Data.Repositories.MelloRoos
                 return record;
             }
 
-            var dbEntry = await _context.Properties
-                .Include(p => p.Tax)
-                .Include(p => p.Assessment).ThenInclude(a => a.Funds)
-                .FirstOrDefaultAsync(p => p.Address == address);
+            var dbEntry = await _context.Properties.Select(p => new Property
+            {
+                Address = p.Address,
+                Owner = p.Owner,
+                Parcel = p.Parcel,
+                RecordDate = p.RecordDate,
+                Tax = new Tax
+                {
+                    LandValue = p.Tax.LandValue,
+                    ImprovementValue = p.Tax.ImprovementValue,
+                    NetValue = p.Tax.NetValue,
+                    BaseTax = p.Tax.BaseTax,
+                    Rate = p.Tax.Rate,
+                    FixedCharges = p.Tax.FixedCharges,
+                    TotalTax = p.Tax.TotalTax
+                },
+                Assessment = p.Assessment != null ? new Assessment
+                {
+                    Total = p.Assessment.Total,
+                    Funds = p.Assessment.Funds.Select(f => new Fund
+                    {
+                        LineItem = f.LineItem,
+                        Description = f.Description,
+                        FundNumber = f.FundNumber,
+                        Amount = f.Amount
+                    }).OrderBy(f => f.LineItem).ToList()
+                } : null
+            }).FirstOrDefaultAsync(p => p.Address == address);
 
             if (dbEntry != null)
             {
-                //dbEntry.Tax.Property = null;
-
-                //if (dbEntry.Assessment != null)
-                //{
-                //    dbEntry.Assessment.Property = null;
-
-                //    foreach (var fund in dbEntry.Assessment.Funds)
-                //    {
-                //        fund.Assessment = null;
-                //    }
-                //}          
-
                 await _cache.SetRecordAsync(cacheKey, dbEntry);
             }
 

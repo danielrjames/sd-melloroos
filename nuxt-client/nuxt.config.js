@@ -4,21 +4,30 @@
 
 export default {
   publicRuntimeConfig: {
+    baseDomain: process.env.CLIENT_URL,
     clientId: process.env.CLIENT_ID,
   },
 
   privateRuntimeConfig: {},
 
   head: {
-    title: 'nuxt-client',
+    title: 'San Diego Mello Roos Tax Lookup',
     htmlAttrs: {
       lang: 'en',
     },
+
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
+      {
+        name: 'robots',
+        content:
+          process.env.NODE_ENV === 'production'
+            ? 'index, follow'
+            : 'noindex, nofollow',
+      },
+      { name: 'google', content: 'notranslate' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

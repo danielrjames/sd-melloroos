@@ -22,13 +22,25 @@
 import { mapGetters } from 'vuex';
 import LookupForm from '../components/lookup/LookupForm.vue';
 import PropertyDetail from '../components/property/PropertyDetail.vue';
+import { pageHeadConfig } from '../utils/app';
 
 export default {
-  head() {
+  data() {
     return {
-      title: 'San Diego Mello Roos Lookup',
-      titleTemplate: '%s | Find Mello Roos Taxes by Address',
+      headConfig: {
+        description:
+          'Search current San Diego County Mello Roos taxes by property address.',
+        imgPath: `${this.$config.baseDomain}/images/sdm_og.jpg`,
+        ogTitle: 'San Diego Mello Roos Tax Lookup | Find Mello Roos by Address',
+        title: 'San Diego Mello Roos Tax Lookup',
+        titleTemplate: 'Find Mello Roos by Address',
+        url: `${this.$config.baseDomain}`,
+      },
     };
+  },
+
+  head() {
+    return pageHeadConfig(this.headConfig);
   },
 
   components: {
