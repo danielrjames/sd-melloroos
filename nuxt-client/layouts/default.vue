@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-header></app-header>
-    <div class="container pt-16 sm:pt-20 -mt-14 sm:-mt-16 min-h-screen">
+    <div class="container py-16 sm:py-20 -mt-14 sm:-mt-16 min-h-screen">
       <nuxt />
     </div>
     <app-footer></app-footer>

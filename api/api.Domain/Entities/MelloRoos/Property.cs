@@ -7,12 +7,12 @@ namespace api.Domain.Entities.MelloRoos
         [Key]
         public int Id { get; set; }
         public string Address { get; set; } = string.Empty;
-        public int LookupDate { get; set; }
-        public int Parcel { get; set; }
+        public string Parcel { get; set; } = string.Empty;
         public string Owner { get; set; } = string.Empty;
+        public DateTime RecordDate { get; set; }
 
         public Assessment? Assessment { get; set; }
-        public Tax? Tax { get; set; }
+        public Tax Tax { get; set; } = new Tax();
 
     }
 }

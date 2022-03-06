@@ -30,7 +30,7 @@ namespace api.Data.Repositories.Auth
 
         public async Task<bool> AddRefreshToken(RefreshToken refreshToken)
         {
-            _context.Add(refreshToken);
+            _context.RefreshTokens.Add(refreshToken);
 
             return await _context.SaveChangesAsync() > 0;
         }

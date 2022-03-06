@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="my-10 mx-auto max-w-lg text-center">
+    <div class="mx-auto mt-5 sm:mt-10 mb-10 max-w-lg text-center">
       <h2>San Diego Mello Roos Tax Lookup</h2>
       <p class="my-5">
         Find San Diego County Mello Roos and Base Tax records by property
@@ -11,7 +11,7 @@
       <app-lookup-form></app-lookup-form>
     </div>
     <client-only>
-      <div v-if="searchResult" class="my-10 sm:my-14 border-t border-gray-200">
+      <div v-if="searchResult" class="mt-10 sm:mt-14 border-t border-gray-200">
         <app-property-detail :result="searchResult"></app-property-detail>
       </div>
     </client-only>

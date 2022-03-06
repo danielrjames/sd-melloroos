@@ -1,10 +1,11 @@
 using api.Data.Contexts;
 using api.Data.Repositories.Auth;
-using api.Data.Repositories.Property;
+using api.Data.Repositories.MelloRoos;
 using api.Domain.Entities.Auth;
 using api.Domain.Entities.User;
 using api.Services.Services.Auth;
 using api.Services.Services.Email;
+using api.Services.Services.MelloRoos;
 using api.Web.Helpers.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -30,7 +31,11 @@ var tokenAudience = Environment.GetEnvironmentVariable("TOKEN_AUDIENCE") ?? buil
 // add services to the container.
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(postgresConnectionString));
-builder.Services.AddStackExchangeRedisCache(options => options.Configuration = redisConnectionString);
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = redisConnectionString;
+    options.InstanceName = "sd_";
+});
 
 builder.Services
     .AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -108,6 +113,7 @@ builder.Services
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPropertyService, PropertyService>();
 
 // app repositories
 

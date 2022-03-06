@@ -53,7 +53,7 @@ const formatTaxData = (taxArray) => {
   return obj;
 };
 
-const formatMelloRoos = (taxArray) => {
+const formatAssessment = (taxArray) => {
   if (taxArray.length > 0) {
     const obj = {
       funds: [],
@@ -65,8 +65,8 @@ const formatMelloRoos = (taxArray) => {
         const tax = {
           amount: parseFloat(taxArray[i + 6].replace(',', '')),
           description: taxArray[i + 2],
-          fund: taxArray[i + 1],
-          lineItem: taxArray[i],
+          fundNumber: parseInt(taxArray[i + 1]),
+          lineItem: parseInt(taxArray[i]),
           // phone:
           //   taxArray[i + 3] +
           //   ' ' +
@@ -92,14 +92,14 @@ const propertyService = {
     };
   },
 
-  transformTaxResponse(data) {
+  transformScrapedResponse(data) {
     const model = {
       address: data.address,
+      assessment: formatAssessment(data.specialAssessment),
       lookupDate: Date.now(),
-      melloRoos: formatMelloRoos(data.specialAssessment),
       owner: data.owner,
       parcel: data.parcel,
-      taxes: formatTaxData(data.taxes),
+      tax: formatTaxData(data.taxes),
     };
 
     return model;

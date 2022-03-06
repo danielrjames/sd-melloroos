@@ -21,8 +21,7 @@ namespace api.Data
         {
             var options = new DistributedCacheEntryOptions
             {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(10),
-                SlidingExpiration = TimeSpan.FromMinutes(2)
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
             };
 
             var jsonData = JsonSerializer.Serialize(data);

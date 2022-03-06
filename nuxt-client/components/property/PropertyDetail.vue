@@ -33,28 +33,28 @@
           <div>
             <div class="flex justify-between">
               <div class="font-medium text-gray-heading">Land Value:</div>
-              <div>{{ result.taxes.landValues | usd }}</div>
+              <div>{{ result.tax.landValues | usd }}</div>
             </div>
             <div class="flex justify-between">
               <div class="font-medium text-gray-heading">
-                Improvement Values:
+                Improvement Value:
               </div>
-              <div>{{ result.taxes.improvementValues | usd }}</div>
+              <div>{{ result.tax.improvementValues | usd }}</div>
             </div>
             <div class="flex justify-between">
               <div class="font-medium text-gray-heading">Net Value:</div>
-              <div>{{ result.taxes.netValue | usd }}</div>
+              <div>{{ result.tax.netValue | usd }}</div>
             </div>
           </div>
 
           <div>
             <div class="flex justify-between">
               <div class="font-medium text-gray-heading">Base Tax:</div>
-              <div>{{ result.taxes.baseTax | usd }}</div>
+              <div>{{ result.tax.baseTax | usd }}</div>
             </div>
             <div class="flex justify-between">
               <div class="font-medium text-gray-heading">Base Tax Rate:</div>
-              <div>{{ result.taxes.rate }}</div>
+              <div>{{ result.tax.rate }}</div>
             </div>
 
             <div class="flex justify-between">
@@ -64,20 +64,20 @@
                   >Mello Roos (Special Assessment):</span
                 >
               </div>
-              <div>{{ result.taxes.fixedCharges | usd }}</div>
+              <div>{{ result.tax.fixedCharges | usd }}</div>
             </div>
             <div
               class="flex justify-between pt-1 mt-1 border-t border-gray-200"
             >
               <div class="font-medium text-gray-heading">Total Tax:</div>
-              <div>{{ result.taxes.totalTax | usd }}</div>
+              <div>{{ result.tax.totalTax | usd }}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      v-if="result.melloRoos !== null"
+      v-if="result.assessment !== null"
       v-show="displayDetails"
       :class="{ 'cursor-pointer': toggleDetails }"
       class="mt-3"
@@ -89,7 +89,7 @@
         Special Assessment Breakdown
       </div>
       <div
-        v-for="fund in result.melloRoos.funds"
+        v-for="fund in result.assessment.funds"
         :key="fund.item"
         class="flex justify-between"
       >
@@ -103,7 +103,7 @@
           Total Special Assessment:
         </div>
         <div>
-          {{ result.melloRoos.total | usd }}
+          {{ result.assessment.total | usd }}
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@
       v-show="displayDetails"
       class="py-2 mt-3 text-xs italic text-center sm:text-right"
     >
-      All information listed is public record.
+      All information is public record.
     </div>
   </div>
 </template>

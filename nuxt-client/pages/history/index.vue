@@ -1,14 +1,15 @@
 <template>
   <client-only>
     <div>
-      <div class="sm:flex sm:justify-between sm:items-center my-2 sm:my-4">
+      <div
+        class="sm:flex sm:justify-between sm:items-center mt-2 sm:mt-0 mb-2 sm:mb-4"
+      >
         <div
           class="mb-4 sm:mb-0 text-lg font-semibold tracking-tight text-center sm:text-left text-gray-heading"
         >
           History
         </div>
         <app-text-input
-          v-if="propertyList.length > 1"
           auto-complete="off"
           :class="'mb-5 sm:mb-0 sm:max-w-xs'"
           :show-label="false"
@@ -16,6 +17,7 @@
           input-name="search"
           :input-value="searchTerm"
           :max-length="250"
+          :disabled="propertyList.length < 2"
           :required="false"
           @output="searchTerm = $event"
         ></app-text-input>
@@ -32,6 +34,12 @@
             :show-date="true"
             :toggle-details="true"
           ></app-property-detail>
+        </div>
+        <div
+          v-if="sortedList < 1"
+          class="py-5 text-sm text-center sm:text-left"
+        >
+          No records found.
         </div>
         <app-pagination
           v-if="sortedList > size"
@@ -50,7 +58,7 @@
           </button>
         </div>
       </div>
-      <div v-else class="text-sm text-center sm:text-left">
+      <div v-else class="py-5 text-sm text-center sm:text-left">
         There is no prior search history.
       </div>
     </div>
@@ -70,7 +78,7 @@ export default {
       listLength: 0,
       pageCount: 1,
       searchTerm: '',
-      size: 8,
+      size: 6,
     };
   },
 

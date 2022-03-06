@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.post('/get-taxes', async (req, res) => {
+app.post('/get-property', async (req, res) => {
   if (req.body.clientId !== 1) {
     throw new Error('Invalid Client');
   }

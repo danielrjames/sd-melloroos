@@ -14,13 +14,13 @@ namespace api.Data.Contexts
         {
         }
 
-        public DbSet<AuthClient> AuthClients { get; set; } = null!;
-        public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
+        public DbSet<AuthClient> AuthClients => Set<AuthClient>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
-        public DbSet<Assessment> Assessments { get; set; } = null!;
-        public DbSet<Fund> Funds { get; set; } = null!;
-        public DbSet<Property> Properties { get; set; } = null!;
-        public DbSet<Tax> Taxes { get; set; } = null!;
+        public DbSet<Assessment> Assessments => Set<Assessment>();
+        public DbSet<Fund> Funds => Set<Fund>();
+        public DbSet<Property> Properties => Set<Property>();
+        public DbSet<Tax> Taxes => Set<Tax>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -56,16 +56,19 @@ namespace api.Data.Contexts
             builder.Entity<Property>()
                 .HasOne(a => a.Tax)
                 .WithOne(b => b.Property)
+                .IsRequired(true)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Property>()
                 .HasOne(a => a.Assessment)
                 .WithOne(b => b.Property)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Assessment>()
                 .HasMany(a => a.Funds)
                 .WithOne(b => b.Assessment)
+                .IsRequired(true)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Seed data

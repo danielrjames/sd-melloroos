@@ -70,6 +70,22 @@ namespace api.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Property",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    Parcel = table.Column<string>(type: "text", nullable: false),
+                    Owner = table.Column<string>(type: "text", nullable: false),
+                    RecordDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Property", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -202,6 +218,75 @@ namespace api.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Assessment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Total = table.Column<double>(type: "double precision", nullable: false),
+                    PropertyId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Assessment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Assessment_Property_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Property",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tax",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    LandValue = table.Column<double>(type: "double precision", nullable: false),
+                    ImprovementValue = table.Column<double>(type: "double precision", nullable: false),
+                    NetValue = table.Column<double>(type: "double precision", nullable: false),
+                    BaseTax = table.Column<double>(type: "double precision", nullable: false),
+                    Rate = table.Column<double>(type: "double precision", nullable: false),
+                    FixedCharges = table.Column<double>(type: "double precision", nullable: false),
+                    TotalTax = table.Column<double>(type: "double precision", nullable: false),
+                    PropertyId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tax", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tax_Property_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Property",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fund",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    LineItem = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    FundNumber = table.Column<int>(type: "integer", nullable: false),
+                    Amount = table.Column<double>(type: "double precision", nullable: false),
+                    AssessmentId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fund", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Fund_Assessment_AssessmentId",
+                        column: x => x.AssessmentId,
+                        principalTable: "Assessment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AuthClient",
                 columns: new[] { "Id", "Active", "Name" },
@@ -251,6 +336,17 @@ namespace api.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Assessment_PropertyId",
+                table: "Assessment",
+                column: "PropertyId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fund_AssessmentId",
+                table: "Fund",
+                column: "AssessmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshToken_ClientId",
                 table: "RefreshToken",
                 column: "ClientId");
@@ -259,6 +355,12 @@ namespace api.Data.Migrations
                 name: "IX_RefreshToken_UserId",
                 table: "RefreshToken",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tax_PropertyId",
+                table: "Tax",
+                column: "PropertyId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -279,16 +381,28 @@ namespace api.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Fund");
+
+            migrationBuilder.DropTable(
                 name: "RefreshToken");
 
             migrationBuilder.DropTable(
+                name: "Tax");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Assessment");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "AuthClient");
+
+            migrationBuilder.DropTable(
+                name: "Property");
         }
     }
 }

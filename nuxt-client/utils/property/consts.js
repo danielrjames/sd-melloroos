@@ -1,7 +1,7 @@
 export const endpoint = {
-  ADD_TAXES_TO_DB: '/property/add-taxes',
-  FETCH_TAXES: '/api/get-taxes',
-  GET_TAXES_FROM_DB: '/property/get-taxes',
+  FETCH_FROM_COUNTY: '/api/get-property',
+  GET_FROM_DB: '/property',
+  SAVE_TO_DB: '/property',
 };
 
 export const assessmentRoll = {

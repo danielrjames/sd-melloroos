@@ -37,16 +37,15 @@ const actions = {
       } else {
         let response;
 
-        const dbResponse = await this.$axios.$post(
-          endpoint.GET_TAXES_FROM_DB,
-          addressModel
+        const dbResponse = await this.$axios.$get(
+          `${endpoint.GET_FROM_DB}/${addressModel.address}`
         );
 
-        if (dbResponse.valid) {
-          response = dbResponse;
+        if (dbResponse.valid === true) {
+          response = dbResponse.model;
         } else {
           const fetchResponse = await axios.post(
-            endpoint.FETCH_TAXES,
+            endpoint.FETCH_FROM_COUNTY,
             addressModel
           );
 
@@ -54,14 +53,14 @@ const actions = {
             throw new ErrorException(fetchResponse.data.error);
           }
 
-          response = fetchResponse.data;
+          response = propertyService.transformScrapedResponse(
+            fetchResponse.data
+          );
 
-          this.$axios.$post(endpoint.ADD_TAXES_TO_DB, response); // do not await
+          this.$axios.$post(endpoint.SAVE_TO_DB, response); // do not await
         }
 
-        const propertyInfo = propertyService.transformTaxResponse(response);
-
-        commit('ADD_PROPERTY', propertyInfo);
+        commit('ADD_PROPERTY', response);
 
         await dispatch('app/updateSpinner', false, { root: true });
 

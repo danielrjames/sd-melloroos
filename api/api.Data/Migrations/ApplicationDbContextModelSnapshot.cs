@@ -17,7 +17,7 @@ namespace api.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -75,6 +75,127 @@ namespace api.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RefreshToken", (string)null);
+                });
+
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.Assessment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId")
+                        .IsUnique();
+
+                    b.ToTable("Assessment", (string)null);
+                });
+
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.Fund", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("AssessmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("FundNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("LineItem")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssessmentId");
+
+                    b.ToTable("Fund", (string)null);
+                });
+
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.Property", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Owner")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Parcel")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RecordDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Property", (string)null);
+                });
+
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.Tax", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("BaseTax")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("FixedCharges")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("ImprovementValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("LandValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("NetValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("Rate")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("TotalTax")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId")
+                        .IsUnique();
+
+                    b.ToTable("Tax", (string)null);
                 });
 
             modelBuilder.Entity("api.Domain.Entities.User.ApplicationRole", b =>
@@ -314,6 +435,38 @@ namespace api.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.Assessment", b =>
+                {
+                    b.HasOne("api.Domain.Entities.MelloRoos.Property", "Property")
+                        .WithOne("Assessment")
+                        .HasForeignKey("api.Domain.Entities.MelloRoos.Assessment", "PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Property");
+                });
+
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.Fund", b =>
+                {
+                    b.HasOne("api.Domain.Entities.MelloRoos.Assessment", "Assessment")
+                        .WithMany("Funds")
+                        .HasForeignKey("AssessmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Assessment");
+                });
+
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.Tax", b =>
+                {
+                    b.HasOne("api.Domain.Entities.MelloRoos.Property", "Property")
+                        .WithOne("Tax")
+                        .HasForeignKey("api.Domain.Entities.MelloRoos.Tax", "PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("api.Domain.Entities.User.ApplicationRole", null)
@@ -362,6 +515,19 @@ namespace api.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.Assessment", b =>
+                {
+                    b.Navigation("Funds");
+                });
+
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.Property", b =>
+                {
+                    b.Navigation("Assessment");
+
+                    b.Navigation("Tax")
                         .IsRequired();
                 });
 

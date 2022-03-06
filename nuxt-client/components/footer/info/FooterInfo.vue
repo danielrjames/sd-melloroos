@@ -1,5 +1,5 @@
 <template>
-  <div class="py-5 text-sm text-center border-t border-gray-default">
+  <div class="py-5 text-sm text-center">
     <span> &copy; {{ currentYear }}</span>
     <span>San Diego Mello Roos Lookup</span>
   </div>

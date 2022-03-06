@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-10 sm:mt-14 bg-gray-50 text-gray-input">
+  <div class="bg-gray-50 border-t text-gray-input border-gray-default">
     <div class="container">
       <app-footer-info> </app-footer-info>
     </div>

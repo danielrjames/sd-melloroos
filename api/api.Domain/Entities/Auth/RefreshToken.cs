@@ -11,9 +11,9 @@ namespace api.Domain.Entities.Auth
         public DateTime ExpiresUtc { get; set; }
 
         public int ClientId { get; set; }
-        public AuthClient? Client { get; set; }
+        public AuthClient Client { get; set; } = null!;
 
         public Guid UserId { get; set; }
-        public ApplicationUser? User { get; set; }
+        public ApplicationUser User { get; set; } = null!;
     }
 }
