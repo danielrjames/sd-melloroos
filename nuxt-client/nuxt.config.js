@@ -6,6 +6,8 @@ export default {
   publicRuntimeConfig: {
     baseDomain: process.env.CLIENT_URL,
     clientId: process.env.CLIENT_ID,
+    ogImgDefault: '/images/sdm_og.jpg',
+    siteTile: process.env.SITE_TITLE,
   },
 
   privateRuntimeConfig: {},
@@ -48,7 +50,12 @@ export default {
 
   components: false,
 
-  buildModules: ['@nuxtjs/eslint-module', '@nuxt/postcss8', 'nuxt-route-meta'],
+  buildModules: [
+    '@nuxtjs/eslint-module',
+    '@nuxt/postcss8',
+    'nuxt-route-meta',
+    '@nuxtjs/pwa',
+  ],
 
   modules: ['@nuxtjs/axios', 'cookie-universal-nuxt', 'nuxt-user-agent'],
 
@@ -66,6 +73,23 @@ export default {
   router: {
     linkActiveClass: 'active',
     middleware: ['overlays'],
+  },
+
+  pwa: {
+    icon: {
+      purpose: 'any',
+    },
+    meta: {
+      favicon: false,
+    },
+    manifest: {
+      name: process.env.SITE_TITLE,
+      short_name: 'San Diego Mello Roos',
+      description:
+        'Search current San Diego County Mello Roos taxes by property address.',
+      theme_color: '#ffffff',
+      background_color: '#ffffff',
+    },
   },
 
   build: {

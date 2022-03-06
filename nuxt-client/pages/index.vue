@@ -30,9 +30,9 @@ export default {
       headConfig: {
         description:
           'Search current San Diego County Mello Roos taxes by property address.',
-        imgPath: `${this.$config.baseDomain}/images/sdm_og.jpg`,
-        ogTitle: 'San Diego Mello Roos Tax Lookup | Find Mello Roos by Address',
-        title: 'San Diego Mello Roos Tax Lookup',
+        imgPath: `${this.$config.baseDomain}${this.$config.ogImgDefault}`,
+        ogTitle: `${this.$config.siteTitle} | Find Mello Roos by Address`,
+        title: `${this.$config.siteTitle}`,
         titleTemplate: 'Find Mello Roos by Address',
         url: `${this.$config.baseDomain}`,
       },

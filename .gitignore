@@ -349,3 +349,4 @@ __pycache__/
 /api/api.Web/appsettings.Development.json
 nuxt/static/sw.js
 nuxt-edge/static/sw.js
+nuxt-client/static/sw*
