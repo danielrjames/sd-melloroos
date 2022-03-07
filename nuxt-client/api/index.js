@@ -51,7 +51,7 @@ app.post('/get-property', async (req, res) => {
 
     await page.click(ROLL.BUTTON);
 
-    await page.waitForSelector(ROLL.TABLE);
+    await page.waitForSelector(ROLL.TABLE, { visible: true });
 
     await page.waitForTimeout(5);
 
@@ -61,7 +61,12 @@ app.post('/get-property', async (req, res) => {
       })
     );
 
-    const rawParcel = data[data.length - 1];
+    if (data.length > 4) {
+      throw new Error('Invalid Address (please be exact).');
+    }
+
+    const rawParcel =
+      data.length < 4 ? 'No Property Found' : data[data.length - 1];
 
     if (rawParcel === 'No Property Found') {
       throw new Error('Invalid Address (no property found).');
