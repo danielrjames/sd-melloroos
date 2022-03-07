@@ -10,8 +10,6 @@ COPY eslint eslint/*
 
 RUN yarn install
 
-RUN yarn cache clean
-
 COPY . .
 
 RUN yarn build
