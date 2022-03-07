@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  redis_cache:
-    container_name: redis_cache
+  redis:
+    container_name: redis
     image: redis:alpine
     restart: always
     expose:
@@ -37,7 +37,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: 'Production'
       DB_CONNECTION_STRING: 'Server=postgres;Port=5432;Database=pgDb;User Id=pguser;Password=pguserpass'
-      CACHE_CONNECTION_STRING: 'redis://redis_cache:6379'
+      CACHE_CONNECTION_STRING: 'redis:6379'
       TOKEN_HTTPS_META: 'true'
       TOKEN_AUDIENCE: 'https://sandiegomelloroos.com'
       TOKEN_ISSUER: 'https://api.sandiegomelloroos.com'
