@@ -12,7 +12,7 @@ const actions = {
     if (data.init !== true) {
       const temp = [...state.list];
       const propList =
-        temp.length > 18 ? temp.reverse().slice(0, 17).reverse() : [...temp];
+        temp.length > 18 ? temp.reverse().slice(0, 18).reverse() : [...temp];
 
       const prep = JSON.stringify(propList);
 
