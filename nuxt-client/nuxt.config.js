@@ -7,7 +7,7 @@ export default {
     baseDomain: process.env.CLIENT_URL,
     clientId: process.env.CLIENT_ID,
     ogImgDefault: '/images/sdm_og.jpg',
-    siteTile: process.env.SITE_TITLE,
+    siteTile: 'San Diego Mello Roos Tax Lookup',
   },
 
   privateRuntimeConfig: {},
@@ -88,7 +88,7 @@ export default {
       favicon: false,
     },
     manifest: {
-      name: process.env.SITE_TITLE,
+      name: 'San Diego Mello Roos Tax Lookup',
       short_name: 'San Diego Mello Roos',
       description:
         'Search current San Diego County Mello Roos taxes by property address.',

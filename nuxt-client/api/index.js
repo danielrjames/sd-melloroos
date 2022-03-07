@@ -16,7 +16,15 @@ app.post('/get-property', async (req, res) => {
     throw new Error('Invalid Client');
   }
 
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    args: [
+      '--disable-gpu',
+      '--disable-dev-shm-usage',
+      '--disable-setuid-sandbox',
+      '--no-sandbox',
+    ],
+    headless: true,
+  });
 
   try {
     const page = await browser.newPage();
