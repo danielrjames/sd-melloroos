@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:lts
 
 ENV HOST 0.0.0.0
 
