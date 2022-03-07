@@ -77,9 +77,9 @@ export default {
     return {
       currentPage: 1,
       headConfig: {
-        description: `Search History page for ${this.$config.siteTitle}.`,
+        description: 'Search History page for San Diego Mello Roos Tax Lookup.',
         imgPath: `${this.$config.baseDomain}${this.$config.ogImgDefault}`,
-        ogTitle: `History | ${this.$config.siteTitle}`,
+        ogTitle: 'History | San Diego Mello Roos Tax Lookup',
         title: 'History',
         url: `${this.$config.baseDomain}${this.$route.fullPath}`,
       },

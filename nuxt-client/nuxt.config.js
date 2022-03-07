@@ -7,7 +7,6 @@ export default {
     baseDomain: process.env.CLIENT_URL,
     clientId: process.env.CLIENT_ID,
     ogImgDefault: '/images/sdm_og.jpg',
-    siteTile: 'San Diego Mello Roos Tax Lookup',
   },
 
   privateRuntimeConfig: {},

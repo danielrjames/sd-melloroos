@@ -47,9 +47,9 @@ export default {
   data() {
     return {
       headConfig: {
-        description: `About page for ${this.$config.siteTitle}.`,
+        description: 'About page for San Diego Mello Roos Tax Lookup.',
         imgPath: `${this.$config.baseDomain}${this.$config.ogImgDefault}`,
-        ogTitle: `About | ${this.$config.siteTitle}`,
+        ogTitle: 'About | San Diego Mello Roos Tax Lookup',
         title: 'About',
         url: `${this.$config.baseDomain}${this.$route.fullPath}`,
       },
