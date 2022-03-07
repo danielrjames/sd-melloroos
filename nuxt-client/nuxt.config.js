@@ -54,6 +54,7 @@ export default {
     '@nuxt/postcss8',
     'nuxt-route-meta',
     '@nuxtjs/pwa',
+    '@nuxtjs/google-analytics',
   ],
 
   modules: [
@@ -77,6 +78,10 @@ export default {
   router: {
     linkActiveClass: 'active',
     middleware: ['overlays'],
+  },
+
+  googleAnalytics: {
+    id: 'G-1Q20NK3TD7',
   },
 
   pwa: {
