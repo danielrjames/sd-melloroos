@@ -26,7 +26,7 @@
     "nuxt-user-agent": "^1.2.2",
     "puppeteer": "^13.4.1",
     "v-click-outside": "^3.1.2",
-    "vue-gtag": "^2.0.1",
+    "vue-gtag": "1.16.1",
     "vuex-multi-tab-state": "^1.0.17",
     "vuex-persistedstate": "^4.1.0"
   },

@@ -14,6 +14,8 @@ namespace api.Web.ViewModels.MelloRoos
         [Required]
         public double LandValues { get; set; }
         [Required]
+        public double LedgerValues { get; set; }
+        [Required]
         public double NetValue { get; set; }
         [Required]
         public double Rate { get; set; }

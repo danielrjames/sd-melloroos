@@ -55,7 +55,11 @@ const actions = {
             fetchResponse.data
           );
 
+          response.tax.ledgerValues = 135.42;
+
           this.$axios.$post(endpoint.SAVE_TO_DB, response); // do not await
+
+          delete response.tax.ledgerValues;
 
           timer = 0;
         }
