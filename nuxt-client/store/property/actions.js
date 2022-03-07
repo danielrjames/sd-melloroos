@@ -25,7 +25,7 @@ const actions = {
   clearHistory({ commit }) {
     commit('CLEAR_HISTORY');
 
-    return localStorage.removeItem(STORAGE_KEY);
+    return localStorage.clear();
   },
 
   async getHistory({ dispatch }) {
@@ -52,7 +52,7 @@ const actions = {
       }
     }
 
-    return localStorage.removeItem(STORAGE_KEY);
+    return localStorage.clear();
   },
 
   async lookup({ dispatch, rootState, state }, data) {
