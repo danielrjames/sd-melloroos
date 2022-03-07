@@ -57,7 +57,12 @@ export default {
     '@nuxtjs/pwa',
   ],
 
-  modules: ['@nuxtjs/axios', 'cookie-universal-nuxt', 'nuxt-user-agent'],
+  modules: [
+    '@nuxtjs/axios',
+    'cookie-universal-nuxt',
+    'nuxt-user-agent',
+    '@nuxtjs/sitemap',
+  ],
 
   serverMiddleware: [{ path: '/api', handler: '~/api/index.js' }],
 
@@ -90,6 +95,11 @@ export default {
       theme_color: '#ffffff',
       background_color: '#ffffff',
     },
+  },
+
+  sitemap: {
+    hostname: process.env.CLIENT_URL,
+    exclude: [],
   },
 
   build: {
