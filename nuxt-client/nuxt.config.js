@@ -39,6 +39,7 @@ export default {
   css: ['@/assets/css/tailwind.css', '@/assets/css/animation.css'],
 
   plugins: [
+    { src: '~/plugins/analytics.js' },
     { src: '~/plugins/axios.js' },
     { src: '~/plugins/clickOutside.js', mode: 'client' },
     { src: '~/plugins/currency.js', mode: 'client' },
@@ -54,7 +55,6 @@ export default {
     '@nuxt/postcss8',
     'nuxt-route-meta',
     '@nuxtjs/pwa',
-    '@nuxtjs/google-analytics',
   ],
 
   modules: [
@@ -78,10 +78,6 @@ export default {
   router: {
     linkActiveClass: 'active',
     middleware: ['overlays'],
-  },
-
-  googleAnalytics: {
-    id: 'G-1Q20NK3TD7',
   },
 
   pwa: {
