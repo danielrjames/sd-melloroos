@@ -43,7 +43,7 @@ app.post('/get-property', async (req, res) => {
 
     await page.waitForSelector(ROLL.TIP, { visible: true });
 
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(250);
 
     await page.focus(ROLL.ADDRESS_INPUT);
 
