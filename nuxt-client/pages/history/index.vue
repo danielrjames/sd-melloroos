@@ -136,6 +136,7 @@ export default {
   methods: {
     async clearHistory() {
       await this.$store.dispatch('property/clearHistory');
+      window.scrollTo(0, 0);
     },
 
     getPageCount(list) {
