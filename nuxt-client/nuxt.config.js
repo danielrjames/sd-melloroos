@@ -38,16 +38,6 @@ export default {
 
   css: ['@/assets/css/tailwind.css', '@/assets/css/animation.css'],
 
-  plugins: [
-    { src: '~/plugins/analytics.js' },
-    { src: '~/plugins/axios.js' },
-    { src: '~/plugins/clickOutside.js', mode: 'client' },
-    { src: '~/plugins/currency.js', mode: 'client' },
-    { src: '~/plugins/multiTabState.js', mode: 'client' },
-    { src: '~/plugins/persistedState.js', mode: 'client' },
-    { src: '~/plugins/time.js', mode: 'client' },
-  ],
-
   components: false,
 
   buildModules: [
@@ -55,6 +45,7 @@ export default {
     '@nuxt/postcss8',
     'nuxt-route-meta',
     '@nuxtjs/pwa',
+    '@nuxtjs/google-analytics',
   ],
 
   modules: [
@@ -62,6 +53,15 @@ export default {
     'cookie-universal-nuxt',
     'nuxt-user-agent',
     '@nuxtjs/sitemap',
+  ],
+
+  plugins: [
+    { src: '~/plugins/axios.js' },
+    { src: '~/plugins/clickOutside.js', mode: 'client' },
+    { src: '~/plugins/currency.js', mode: 'client' },
+    { src: '~/plugins/multiTabState.js', mode: 'client' },
+    { src: '~/plugins/persistedState.js', mode: 'client' },
+    { src: '~/plugins/time.js', mode: 'client' },
   ],
 
   serverMiddleware: [{ path: '/api', handler: '~/api/index.js' }],
@@ -78,6 +78,10 @@ export default {
   router: {
     linkActiveClass: 'active',
     middleware: ['overlays'],
+  },
+
+  googleAnalytics: {
+    id: 'UA-222200218-1',
   },
 
   pwa: {
