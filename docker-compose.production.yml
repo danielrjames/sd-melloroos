@@ -44,8 +44,8 @@ services:
     networks:
       - internal
       - web
-  nuxt:
-    container_name: nuxt
+  nuxt1:
+    container_name: nuxt1
     build:
       context: ./nuxt-client
       dockerfile: Dockerfile
