@@ -20,14 +20,13 @@
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.15.1",
     "express": "^4.17.3",
+    "js-base64": "^3.7.2",
     "jwt-decode": "^3.1.2",
     "nuxt": "^2.15.7",
     "nuxt-route-meta": "^2.3.4",
     "nuxt-user-agent": "^1.2.2",
     "puppeteer": "^13.4.1",
-    "v-click-outside": "^3.1.2",
-    "vuex-multi-tab-state": "^1.0.17",
-    "vuex-persistedstate": "^4.1.0"
+    "v-click-outside": "^3.1.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",

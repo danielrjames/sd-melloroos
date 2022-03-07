@@ -56,11 +56,10 @@ export default {
   ],
 
   plugins: [
+    { src: '~/plugins/clientInit.js', mode: 'client' },
     { src: '~/plugins/axios.js' },
     { src: '~/plugins/clickOutside.js', mode: 'client' },
     { src: '~/plugins/currency.js', mode: 'client' },
-    { src: '~/plugins/multiTabState.js', mode: 'client' },
-    { src: '~/plugins/persistedState.js', mode: 'client' },
     { src: '~/plugins/time.js', mode: 'client' },
   ],
 

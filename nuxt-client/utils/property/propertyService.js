@@ -96,7 +96,6 @@ const propertyService = {
     const model = {
       address: data.address,
       assessment: formatAssessment(data.specialAssessment),
-      lookupDate: Date.now(),
       owner: data.owner,
       parcel: data.parcel,
       tax: formatTaxData(data.taxes),

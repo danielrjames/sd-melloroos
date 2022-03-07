@@ -1,13 +1,61 @@
 import axios from 'axios';
+import { Base64 } from 'js-base64';
 import { ErrorException } from '../../utils/error';
 import { endpoint, propertyService } from '../../utils/property';
 
+const STORAGE_KEY = 'sdMelloRoos';
+
 const actions = {
-  clearHistory({ commit }) {
-    return commit('CLEAR_HISTORY');
+  addProperty({ commit, state }, data) {
+    commit('ADD_PROPERTY', data.property);
+
+    if (data.init !== true) {
+      const temp = [...state.list];
+      const propList =
+        temp.length > 18 ? temp.reverse().slice(0, 17).reverse() : [...temp];
+
+      const prep = JSON.stringify(propList);
+
+      const encoded = Base64.encode(prep);
+
+      localStorage.setItem(STORAGE_KEY, encoded);
+    }
   },
 
-  async lookup({ commit, dispatch, rootState, state }, data) {
+  clearHistory({ commit }) {
+    commit('CLEAR_HISTORY');
+
+    return localStorage.removeItem(STORAGE_KEY);
+  },
+
+  async getHistory({ dispatch }) {
+    const lsData = localStorage.getItem(STORAGE_KEY);
+
+    if (lsData && Base64.isValid(lsData)) {
+      const decoded = Base64.decode(lsData);
+
+      const parsed = JSON.parse(decoded);
+
+      if (Array.isArray(parsed)) {
+        for (let i = 0; i < parsed.length; i++) {
+          const property = parsed[i];
+
+          const propertyModel = {
+            init: true,
+            property,
+          };
+
+          await dispatch('addProperty', propertyModel);
+        }
+
+        return true;
+      }
+    }
+
+    return localStorage.removeItem(STORAGE_KEY);
+  },
+
+  async lookup({ dispatch, rootState, state }, data) {
     if (rootState.app.loading) {
       return;
     }
@@ -64,7 +112,14 @@ const actions = {
           timer = 0;
         }
 
-        commit('ADD_PROPERTY', response);
+        response.lookupDate = Date.now();
+
+        const propertyModel = {
+          init: false,
+          property: response,
+        };
+
+        await dispatch('addProperty', propertyModel);
       }
 
       setTimeout(() => {
