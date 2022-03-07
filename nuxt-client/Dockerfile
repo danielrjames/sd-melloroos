@@ -4,7 +4,7 @@ ENV HOST 0.0.0.0
 
 WORKDIR /app
 
-COPY package.json yarn.lock eslint ./
+COPY package.json yarn.lock ./
 
 RUN yarn install
 
