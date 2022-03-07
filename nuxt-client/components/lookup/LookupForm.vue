@@ -20,7 +20,7 @@
         'btn-primary',
         'btn-stretch',
         'mb-0',
-        slim ? 'btn-sm' : 'btn-sm sm:btn-md',
+        slim ? 'btn-sm' : 'btn-md',
         { 'btn-loading': spinner },
       ]"
     >
