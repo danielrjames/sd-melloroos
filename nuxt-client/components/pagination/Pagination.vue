@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex justify-between items-center py-3 bg-white rounded-b-md border-t border-gray-default"
+    class="sm:flex sm:justify-between sm:items-center py-3 bg-white rounded-b-md border-t border-gray-default"
     aria-label="Pagination"
   >
     <div class="hidden sm:block text-sm">
