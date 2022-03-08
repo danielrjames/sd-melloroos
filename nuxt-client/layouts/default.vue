@@ -19,8 +19,8 @@ import Footer from '../components/footer/Footer.vue';
 export default {
   head() {
     return {
-      title: 'San Diego Mello Roos Tax Lookup',
-      titleTemplate: '%s | San Diego Mello Roos Tax Lookup',
+      title: 'San Diego Mello-Roos Tax Lookup',
+      titleTemplate: '%s | San Diego Mello-Roos Tax Lookup',
     };
   },
 

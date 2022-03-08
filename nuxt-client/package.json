@@ -1,7 +1,7 @@
 {
   "name": "sd-mello-roos-client",
   "version": "1.0.0",
-  "description": "San Diego Mello Roos Tax Lookup Application",
+  "description": "San Diego Mello-Roos Tax Lookup Application",
   "author": "Daniel James",
   "private": true,
   "scripts": {

@@ -6,13 +6,13 @@ export default {
   publicRuntimeConfig: {
     baseDomain: process.env.CLIENT_URL,
     clientId: process.env.CLIENT_ID,
-    ogImgDefault: '/images/sdm_og.jpg',
+    ogImgDefault: '/images/sdmr_og.jpg',
   },
 
   privateRuntimeConfig: {},
 
   head: {
-    title: 'San Diego Mello Roos Tax Lookup',
+    title: 'San Diego Mello-Roos Tax Lookup',
     htmlAttrs: {
       lang: 'en',
     },
@@ -91,10 +91,10 @@ export default {
       favicon: false,
     },
     manifest: {
-      name: 'San Diego Mello Roos Tax Lookup',
-      short_name: 'San Diego Mello Roos',
+      name: 'San Diego Mello-Roos Tax Lookup',
+      short_name: 'San Diego Mello-Roos',
       description:
-        'Search current San Diego County Mello Roos taxes by property address.',
+        'Search current San Diego County Mello-Roos taxes by property address.',
       theme_color: '#ffffff',
       background_color: '#ffffff',
     },

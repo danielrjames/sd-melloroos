@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="mx-auto mt-5 sm:mt-10 mb-10 max-w-lg text-center">
-      <h2>San Diego Mello Roos Tax Lookup</h2>
+      <h2>San Diego Mello-Roos Tax Lookup</h2>
       <p class="my-5">
-        Find San Diego County Mello Roos and Base Tax records by property
-        address.
+        Find San Diego County Mello-Roos Special Assessments and Property Tax
+        records by address.
       </p>
     </div>
     <div class="my-10 mx-auto max-w-lg">
@@ -29,11 +29,12 @@ export default {
     return {
       headConfig: {
         description:
-          'Search current San Diego County Mello Roos taxes by property address.',
+          'Search current San Diego County Mello-Roos taxes by property address.',
         imgPath: `${this.$config.baseDomain}${this.$config.ogImgDefault}`,
-        ogTitle: 'San Diego Mello Roos Tax Lookup | Find Mello Roos by Address',
-        title: 'San Diego Mello Roos Tax Lookup',
-        titleTemplate: 'Find Mello Roos by Address',
+        ogTitle:
+          'San Diego Mello-Roos Tax Lookup | Find Mello-Roos Taxes by Address',
+        title: 'San Diego Mello-Roos Tax Lookup',
+        titleTemplate: 'Find Mello-Roos Taxes by Address',
         url: `${this.$config.baseDomain}`,
       },
     };

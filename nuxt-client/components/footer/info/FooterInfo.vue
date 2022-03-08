@@ -1,7 +1,7 @@
 <template>
   <div class="py-5 text-sm text-center">
     <span> &copy; {{ currentYear }}</span>
-    <span>San Diego Mello Roos Lookup</span>
+    <span>San Diego Mello-Roos Tax Lookup</span>
     <div class="mt-5 text-xs text-center">
       <a
         class="font-normal text-gray-default"

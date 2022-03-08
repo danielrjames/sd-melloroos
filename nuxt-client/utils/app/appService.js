@@ -75,7 +75,7 @@ export const pageHeadConfig = (data) => {
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: 'San Diego Mello Roos Tax Lookup',
+        content: 'San Diego Mello-Roos Tax Lookup',
       },
       {
         hid: 'og:image',
@@ -95,7 +95,7 @@ export const pageHeadConfig = (data) => {
       {
         hid: 'og:image:alt',
         property: 'og:image:alt',
-        content: 'San Diego Mello Roos Open Graph Image',
+        content: 'San Diego Mello-Roos Open Graph Image',
       },
       {
         hid: 'og:image:width',

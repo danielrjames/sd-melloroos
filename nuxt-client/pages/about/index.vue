@@ -8,7 +8,7 @@
     <div class="mx-auto prose prose-sm">
       <p>
         While searching for a house in San Diego County, I realized there was no
-        easy way to get exact Mello Roos taxes for properties I was interested
+        easy way to get exact Mello-Roos taxes for properties I was interested
         in. Since these taxes do add up, it's nice to know what they are before
         making an offer.
       </p>
@@ -47,9 +47,9 @@ export default {
   data() {
     return {
       headConfig: {
-        description: 'About page for San Diego Mello Roos Tax Lookup.',
+        description: 'About page for San Diego Mello-Roos Tax Lookup.',
         imgPath: `${this.$config.baseDomain}${this.$config.ogImgDefault}`,
-        ogTitle: 'About | San Diego Mello Roos Tax Lookup',
+        ogTitle: 'About | San Diego Mello-Roos Tax Lookup',
         title: 'About',
         url: `${this.$config.baseDomain}${this.$route.fullPath}`,
       },

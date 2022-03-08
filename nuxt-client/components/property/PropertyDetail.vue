@@ -59,9 +59,9 @@
 
             <div class="flex justify-between">
               <div class="font-medium text-gray-heading">
-                <span class="md:hidden">Mello Roos:</span>
+                <span class="md:hidden">Mello-Roos:</span>
                 <span class="hidden md:inline"
-                  >Mello Roos (Special Assessment):</span
+                  >Mello-Roos (Special Assessment):</span
                 >
               </div>
               <div>{{ result.tax.fixedCharges | usd }}</div>
