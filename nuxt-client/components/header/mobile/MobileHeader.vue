@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative z-50 h-14 sm:h-16 bg-white ring-1 ring-gray-900 ring-opacity-5 shadow-sm"
+    class="relative z-50 h-14 sm:h-16 bg-white border-b ring-1 ring-gray-900 ring-opacity-5 border-gray-default"
   >
     <div
       class="container flex justify-between sm:justify-start items-center h-full"
