@@ -36,7 +36,7 @@ export default {
     ],
   },
 
-  css: ['@/assets/css/tailwind.css', '@/assets/css/animation.css'],
+  css: ['@/assets/css/main.css', '@/assets/css/animation.css'],
 
   components: false,
 
@@ -110,7 +110,6 @@ export default {
       plugins: {
         tailwindcss: {},
         autoprefixer: {},
-        ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
       },
     },
     extractCSS: process.env.NODE_ENV === 'production',
