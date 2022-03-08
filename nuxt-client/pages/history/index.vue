@@ -36,13 +36,13 @@
           ></app-property-detail>
         </div>
         <div
-          v-if="sortedList < 1"
+          v-if="sortedList.length < 1"
           class="py-5 text-sm text-center sm:text-left"
         >
           No records found.
         </div>
         <app-pagination
-          v-if="sortedList > size"
+          v-if="sortedList.length > size"
           :total-pages="pageCount"
           :total="listLength"
           :per-page="size"
