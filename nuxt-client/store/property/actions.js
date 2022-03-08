@@ -18,7 +18,7 @@ const actions = {
 
       const encoded = Base64.encode(prep);
 
-      localStorage.setItem(STORAGE_KEY, encoded);
+      return localStorage.setItem(STORAGE_KEY, encoded);
     }
   },
 
@@ -61,7 +61,7 @@ const actions = {
     }
 
     try {
-      dispatch('updateCurrent', '');
+      await dispatch('updateCurrent', '');
 
       await dispatch('app/updateSpinner', true, { root: true });
 

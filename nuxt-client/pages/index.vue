@@ -49,20 +49,10 @@ export default {
     appPropertyDetail: PropertyDetail,
   },
 
-  async mounted() {
-    await this.$store.dispatch('property/updateCurrent', '');
-  },
-
   computed: {
     ...mapGetters('property', {
       searchResult: 'searchResult',
     }),
-  },
-
-  methods: {
-    ahoy() {
-      return true;
-    },
   },
 };
 </script>
