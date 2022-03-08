@@ -16,9 +16,9 @@ namespace api.Data.Repositories.MelloRoos
             _cache = cache;
         }
 
-        public async Task<Property?> GetProperty(string address)
+        public async Task<Property?> GetProperty(string searchAddress)
         {
-            var cacheKey = new string(address.ToCharArray().Where(c => !char.IsWhiteSpace(c)).ToArray());
+            var cacheKey = new string(searchAddress.ToCharArray().Where(c => !char.IsWhiteSpace(c)).ToArray());
 
             var record = await _cache.GetRecordAsync<Property>(cacheKey);
 
@@ -53,8 +53,12 @@ namespace api.Data.Repositories.MelloRoos
                         FundNumber = f.FundNumber,
                         Amount = f.Amount
                     }).OrderBy(f => f.LineItem).ToList()
-                } : null
-            }).FirstOrDefaultAsync(p => p.Address == address);
+                } : null,
+                SearchTerms = p.SearchTerms.Select(st => new SearchTerm 
+                { 
+                    Address = st.Address
+                }).ToList()
+            }).FirstOrDefaultAsync(p => p.SearchTerms.Any(st => st.Address == searchAddress));
 
             if (dbEntry != null)
             {
@@ -68,7 +72,8 @@ namespace api.Data.Repositories.MelloRoos
         {
             var dbEntry = await _context.Properties
                 .Include(p => p.Tax)
-                .Include(p => p.Assessment)
+                .Include(p => p.Assessment).ThenInclude(a => a.Funds)
+                .Include(p => p.SearchTerms)
                 .FirstOrDefaultAsync(p => p.Parcel == property.Parcel);
 
             if (dbEntry == null)
@@ -78,13 +83,16 @@ namespace api.Data.Repositories.MelloRoos
                 return await _context.SaveChangesAsync() > 0;
             }
 
-            var cacheKey = new string(dbEntry.Address.ToCharArray().Where(c => !char.IsWhiteSpace(c)).ToArray());
-
-            var record = await _cache.GetRecordAsync<Property>(cacheKey);
-
-            if (record != null)
+            foreach (var term in dbEntry.SearchTerms)
             {
-                await _cache.RemoveRecordAsync(cacheKey);
+                var cacheKey = new string(term.Address.ToCharArray().Where(c => !char.IsWhiteSpace(c)).ToArray());
+
+                var record = await _cache.GetRecordAsync<Property>(cacheKey);
+
+                if (record != null)
+                {
+                    await _cache.RemoveRecordAsync(cacheKey);
+                }
             }
 
             dbEntry.Owner = property.Owner;
@@ -102,7 +110,7 @@ namespace api.Data.Repositories.MelloRoos
             {
                 dbEntry.Assessment.Total = property.Assessment.Total;
 
-                var removalFunds = dbEntry.Assessment.Funds.Where(existingFund => !property.Assessment.Funds.Any(newFund => newFund.FundNumber == existingFund.FundNumber));
+                var removalFunds = dbEntry.Assessment.Funds.Where(existingFund => !property.Assessment.Funds.Any(newFund => newFund.FundNumber == existingFund.FundNumber)).ToList();
 
                 if (removalFunds.Any())
                 {
@@ -136,6 +144,18 @@ namespace api.Data.Repositories.MelloRoos
                 property.Assessment.PropertyId = dbEntry.Id;
 
                 _context.Assessments.Add(property.Assessment);
+            }
+
+            var termsToAdd = property.SearchTerms.Where(newTerm => !dbEntry.SearchTerms.Any(existingTerm => existingTerm.Address == newTerm.Address)).ToList();
+
+            if (termsToAdd.Any())
+            {
+                foreach (var term in termsToAdd)
+                {
+                    term.PropertyId = dbEntry.Id;
+
+                    _context.SearchTerms.Add(term);
+                }
             }
 
             return await _context.SaveChangesAsync() > 0;

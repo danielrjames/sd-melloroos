@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace api.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -239,6 +239,26 @@ namespace api.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SearchTerm",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    PropertyId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SearchTerm", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SearchTerm_Property_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Property",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tax",
                 columns: table => new
                 {
@@ -357,6 +377,11 @@ namespace api.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SearchTerm_PropertyId",
+                table: "SearchTerm",
+                column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tax_PropertyId",
                 table: "Tax",
                 column: "PropertyId",
@@ -385,6 +410,9 @@ namespace api.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "RefreshToken");
+
+            migrationBuilder.DropTable(
+                name: "SearchTerm");
 
             migrationBuilder.DropTable(
                 name: "Tax");

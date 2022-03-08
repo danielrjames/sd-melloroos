@@ -98,6 +98,11 @@ namespace api.Web.Controllers
                 }
             }
 
+            foreach (var term in vm.SearchTerms)
+            {
+                property.SearchTerms.Add(new SearchTerm { Address = term.ToUpper() });
+            }
+
             return property;
         }
     }

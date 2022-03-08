@@ -80,6 +80,8 @@ app.post('/get-property', (req, res) => {
         throw new Error('Invalid Address (no property found).');
       }
 
+      const recordedAddress = data[2];
+
       const parcelNum = rawParcel.replace(/-/g, '');
 
       if (parcelNum.length !== 10) {
@@ -121,7 +123,7 @@ app.post('/get-property', (req, res) => {
       );
 
       res.json({
-        address: req.body.address.toUpperCase(),
+        address: recordedAddress.toUpperCase(),
         owner: ownerName[0].split('\t')[1],
         parcel: rawParcel,
         specialAssessment: breakdown,

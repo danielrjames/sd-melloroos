@@ -158,6 +158,28 @@ namespace api.Data.Migrations
                     b.ToTable("Property", (string)null);
                 });
 
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.SearchTerm", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("SearchTerm", (string)null);
+                });
+
             modelBuilder.Entity("api.Domain.Entities.MelloRoos.Tax", b =>
                 {
                     b.Property<int>("Id")
@@ -456,6 +478,17 @@ namespace api.Data.Migrations
                     b.Navigation("Assessment");
                 });
 
+            modelBuilder.Entity("api.Domain.Entities.MelloRoos.SearchTerm", b =>
+                {
+                    b.HasOne("api.Domain.Entities.MelloRoos.Property", "Property")
+                        .WithMany("SearchTerms")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+                });
+
             modelBuilder.Entity("api.Domain.Entities.MelloRoos.Tax", b =>
                 {
                     b.HasOne("api.Domain.Entities.MelloRoos.Property", "Property")
@@ -526,6 +559,8 @@ namespace api.Data.Migrations
             modelBuilder.Entity("api.Domain.Entities.MelloRoos.Property", b =>
                 {
                     b.Navigation("Assessment");
+
+                    b.Navigation("SearchTerms");
 
                     b.Navigation("Tax")
                         .IsRequired();

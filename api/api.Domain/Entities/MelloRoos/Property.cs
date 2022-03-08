@@ -14,5 +14,7 @@ namespace api.Domain.Entities.MelloRoos
         public Assessment? Assessment { get; set; }
         public Tax Tax { get; set; } = new Tax();
 
+        public ICollection<SearchTerm> SearchTerms { get; set; } = new List<SearchTerm>();
+
     }
 }

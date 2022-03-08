@@ -72,8 +72,8 @@ const actions = {
 
       const found =
         state.list.length > 0 &&
-        state.list.find(
-          (prop) => prop.address.toLowerCase() === addressModel.address
+        state.list.find((prop) =>
+          prop.searchTerms.includes(addressModel.address.toUpperCase())
         );
 
       let timer = 400;
@@ -102,6 +102,8 @@ const actions = {
           response = propertyService.transformScrapedResponse(
             fetchResponse.data
           );
+
+          response.searchTerms = [addressModel.address.toUpperCase()];
 
           response.tax.ledgerValues = 135.42;
 
@@ -137,7 +139,7 @@ const actions = {
   },
 
   updateCurrent({ commit }, address) {
-    return commit('SET_CURRENT', address);
+    return commit('SET_CURRENT', address.toUpperCase());
   },
 };
 

@@ -21,6 +21,7 @@ namespace api.Data.Contexts
         public DbSet<Fund> Funds => Set<Fund>();
         public DbSet<Property> Properties => Set<Property>();
         public DbSet<Tax> Taxes => Set<Tax>();
+        public DbSet<SearchTerm> SearchTerms => Set<SearchTerm>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -36,6 +37,7 @@ namespace api.Data.Contexts
             builder.Entity<Fund>().ToTable("Fund");
             builder.Entity<Property>().ToTable("Property");
             builder.Entity<Tax>().ToTable("Tax");
+            builder.Entity<SearchTerm>().ToTable("SearchTerm");
 
             // User
             builder.Entity<ApplicationUser>()

@@ -14,6 +14,8 @@ namespace api.Web.ViewModels.MelloRoos
         public AssessmentVM? Assessment { get; set; }
         [Required]
         public TaxVM Tax { get; set; } = new TaxVM();
+        [Required]
+        public List<string> SearchTerms { get; set; } = new List<string>();
 
         public PropertyVM(Property prop)
         {
@@ -22,6 +24,7 @@ namespace api.Web.ViewModels.MelloRoos
             Parcel = prop.Parcel;
             Assessment = getAssessment(prop.Assessment);
             Tax = new TaxVM(prop.Tax);
+            SearchTerms = prop.SearchTerms.Select(st => st.Address).ToList();
         }
 
         public PropertyVM()
