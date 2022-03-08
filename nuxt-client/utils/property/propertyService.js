@@ -1,6 +1,10 @@
 const sanitizeAddress = (address) => {
   let temp = address.toLowerCase().trim();
 
+  if (temp.includes(',')) {
+    temp = temp.replace(',', '');
+  }
+
   if (temp.split(' ').includes('street')) {
     temp = temp.replace('street', 'st');
   }
