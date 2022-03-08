@@ -6,11 +6,7 @@ const sanitizeAddress = (address) => {
   }
 
   if (temp.split(' ').includes('avenue')) {
-    temp = temp.replace('avenue', 'av');
-  }
-
-  if (temp.split(' ').includes('ave')) {
-    temp = temp.replace('ave', 'av');
+    temp = temp.replace('avenue', 'ave');
   }
 
   if (temp.split(' ').includes('terrace')) {
