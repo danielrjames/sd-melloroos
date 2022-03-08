@@ -6,7 +6,7 @@ export default {
   publicRuntimeConfig: {
     baseDomain: process.env.CLIENT_URL,
     clientId: process.env.CLIENT_ID,
-    ogImgDefault: '/images/sdmr_og.jpg',
+    ogImgDefault: '/images/sandiegomelloroos.jpg',
   },
 
   privateRuntimeConfig: {},
