@@ -22,7 +22,7 @@ const launchBrowser = async () => {
       '--disable-setuid-sandbox',
       '--no-sandbox',
     ],
-    headless: false,
+    headless: true,
   });
 };
 
