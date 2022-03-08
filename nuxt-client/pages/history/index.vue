@@ -42,7 +42,7 @@
           No records found.
         </div>
         <app-pagination
-          v-if="sortedList.length > size"
+          v-if="listLength > size"
           :total-pages="pageCount"
           :total="listLength"
           :per-page="size"
@@ -158,6 +158,7 @@ export default {
 
     onPageChange(page) {
       this.currentPage = page;
+      window.scrollTo(0, 0);
     },
   },
 };
