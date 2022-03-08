@@ -70,11 +70,21 @@ const actions = {
         this.$config.clientId
       );
 
-      const found =
-        state.list.length > 0 &&
-        state.list.find((prop) =>
-          prop.searchTerms.includes(addressModel.address.toUpperCase())
+      let found = false;
+
+      if (state.list.length > 0) {
+        const validList = state.list.every((property) =>
+          Array.isArray(property.searchTerms)
         );
+
+        if (validList) {
+          found = state.list.find((prop) =>
+            prop.searchTerms.includes(addressModel.address.toUpperCase())
+          );
+        } else {
+          await dispatch('clearHistory');
+        }
+      }
 
       let timer = 400;
 
