@@ -91,7 +91,7 @@
     @apply border-primary-500;
   }
   .ring-primary {
-    @apply ring-blue-500;
+    @apply ring-primary-500;
   }
 
   /* secondary */
