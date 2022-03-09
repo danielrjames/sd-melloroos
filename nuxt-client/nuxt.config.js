@@ -36,13 +36,13 @@ export default {
     ],
   },
 
-  css: ['@/assets/css/main.css', '@/assets/css/animation.css'],
+  css: ['@/assets/css/animation.css'],
 
   components: false,
 
   buildModules: [
     '@nuxtjs/eslint-module',
-    '@nuxt/postcss8',
+    '@nuxtjs/tailwindcss',
     'nuxt-route-meta',
     '@nuxtjs/pwa',
     '@nuxtjs/google-analytics',
@@ -83,6 +83,10 @@ export default {
     id: 'UA-222200218-1',
   },
 
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+  },
+
   pwa: {
     icon: {
       purpose: 'any',
@@ -106,12 +110,6 @@ export default {
   },
 
   build: {
-    postcss: {
-      plugins: {
-        tailwindcss: {},
-        autoprefixer: {},
-      },
-    },
     extractCSS: process.env.NODE_ENV === 'production',
   },
 };
