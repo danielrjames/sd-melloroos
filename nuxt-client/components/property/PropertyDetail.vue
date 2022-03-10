@@ -54,7 +54,7 @@
             </div>
             <div class="flex justify-between">
               <div class="font-medium text-gray-heading">Base Tax Rate:</div>
-              <div>{{ result.tax.rate }}%</div>
+              <div>{{ result.tax.rate }}</div>
             </div>
 
             <div class="flex justify-between">
