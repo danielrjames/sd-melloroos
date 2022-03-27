@@ -32,6 +32,11 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'apple-touch-icon',
+        type: 'image/png',
+        href: '/icon.png',
+      },
       { rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' },
     ],
   },
