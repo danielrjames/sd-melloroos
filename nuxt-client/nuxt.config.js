@@ -30,15 +30,7 @@ export default {
       },
       { name: 'google', content: 'notranslate' },
     ],
-    link: [
-      // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      // {
-      //   rel: 'apple-touch-icon',
-      //   type: 'image/png',
-      //   href: '/icon.png',
-      // },
-      { rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' },
-    ],
+    link: [{ rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' }],
   },
 
   css: ['@/assets/css/main.css', '@/assets/css/animation.css'],
@@ -92,16 +84,11 @@ export default {
     icon: {
       purpose: 'any',
     },
-    // meta: {
-    //   favicon: false,
-    // },
     manifest: {
       name: 'San Diego Mello-Roos Tax Lookup',
-      short_name: 'San Diego Mello-Roos',
+      short_name: 'SD Mello-Roos',
       description:
         'Search current San Diego County Mello-Roos taxes by property address.',
-      theme_color: '#ffffff',
-      background_color: '#ffffff',
     },
   },
 
