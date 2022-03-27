@@ -31,12 +31,12 @@ export default {
       { name: 'google', content: 'notranslate' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'apple-touch-icon',
-        type: 'image/png',
-        href: '/icon.png',
-      },
+      // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // {
+      //   rel: 'apple-touch-icon',
+      //   type: 'image/png',
+      //   href: '/icon.png',
+      // },
       { rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' },
     ],
   },
@@ -92,9 +92,9 @@ export default {
     icon: {
       purpose: 'any',
     },
-    meta: {
-      favicon: false,
-    },
+    // meta: {
+    //   favicon: false,
+    // },
     manifest: {
       name: 'San Diego Mello-Roos Tax Lookup',
       short_name: 'San Diego Mello-Roos',
