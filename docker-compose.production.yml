@@ -52,12 +52,6 @@ services:
     restart: always
     expose:
       - 3000
-    environment:
-      API_URL: 'https://api.sandiegomelloroos.com'
-      APP_ENV: 'PROD'
-      CLIENT_ID: '1'
-      CLIENT_URL: 'https://sandiegomelloroos.com'
-      SITE_TITLE: 'San Diego Mello Roos Tax Lookup'
     command: 'yarn start'
     depends_on:
       - api
