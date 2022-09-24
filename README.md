@@ -1,5 +1,5 @@
 # San Diego Mello-Roos Tax Lookup
-Mello-Roos tax lookup for San Giego county. https://sandiegomelloroos.com
+Mello-Roos tax lookup for San Diego County. https://sandiegomelloroos.com
 
 Built using the following:
 1. nuxt2 frontend
